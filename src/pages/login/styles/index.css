@@ -1,0 +1,32 @@
+.alert {
+    margin-bottom: 10px;
+}
+
+.forgot-button {
+    outline: none;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.login-text {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    margin-top: 5px;
+}
+
+.submit-button {
+    margin-top: 10px;
+    padding-top: 10px;
+    width: 150px;
+}
+
+.form-box {
+    padding: 2rem;
+    border: 1px solid;
+}
+
+.password-field {
+    margin-top: 15px;
+}
+
+.login-container {
+    margin-top: 100px;
+}
