@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [],
+  content: [
+    './index.html', 
+    './src/**/*.{js,ts,jsx,tsx}'
+  ],
   theme: {
     extend: {},
   },
@@ -8,6 +11,6 @@ export default {
   corePlugins: {
     preflight: false,
   },
-  important: "#root",
+  important: '#root',
 };
 

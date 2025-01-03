@@ -12,21 +12,21 @@ export function getCurrentUser(): Promise<UserOutput> {
 
   return new Promise((resolve, reject) => {
     if (token && user) {
-    API.get("/auth/profile", {
+      API.get("/auth/profile", {
         headers: {
-            Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`
         }
-    })
-    .then((response) => {
-        if (response.data) {
+      })
+        .then((response) => {
+          if (response.data) {
             resolve({
-                id: response.data.id,
-                email: response.data.email,
-                username: response.data.username,
+              id: response.data.id,
+              email: response.data.email,
+              username: response.data.username,
             });
-        }
-     })
-    .catch((error) => reject(error));
+          }
+        })
+        .catch((error) => reject(error));
     }
   });
 }

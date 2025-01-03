@@ -1,11 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router'
-import { Router } from './router.tsx'
-
-import './assets/styles/index.css';
 import { createTheme, StyledEngineProvider, ThemeProvider } from '@mui/material';
-import { AuthProvider } from './context/auth.tsx';
+import { AuthProvider } from '@/hooks/use-auth';
+import { Router } from '@/router.tsx';
+
+import '@/assets/styles/index.css';
 
 const theme = createTheme({});
 
