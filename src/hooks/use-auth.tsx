@@ -1,7 +1,19 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import * as AuthService from "@/services/auth";
 import { API } from "@/api";
-import { AuthContextData, AuthContextUser, AuthProviderProps } from "@/types/auth";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from "react";
+import { 
+  AuthContextData, 
+  AuthContextUser, 
+  AuthPayloadInput, 
+  AuthPayloadOutput,
+  AuthProviderProps
+} from "@/@types/auth";
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
@@ -14,11 +26,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     } else {
       delete API.defaults.headers.Authorization;
     }
+
+    console.log(token);
   });
 
   const getUser = () => {
     const token = sessionStorage.getItem('@app:token');
     const user = sessionStorage.getItem('@app:user');
+
+    console.log(token, user);
 
     if (user && typeof user !== 'undefined' && token) {
       return {
@@ -32,7 +48,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const [user, setUser] = useState<AuthContextUser | null>(getUser());
 
-  async function handleAuth(payload: AuthService.AuthPayloadInput): Promise<AuthService.AuthPayloadOutput> {
+  async function handleAuth(payload: AuthPayloadInput): Promise<AuthPayloadOutput> {
     const response = await AuthService.signIn(payload);
 
     if (!response.token) return { 
@@ -43,6 +59,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       email: payload.email,
       token: response.token
     })
+
+    console.log(response);
 
     API.defaults.headers.Authorization = `Bearer ${response.token}`;
 

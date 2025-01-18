@@ -1,20 +1,6 @@
+import { AuthPayloadInput, AuthPayloadOutput, AuthSignUpInput } from "@/@types/auth";
 import { API } from "@/api";
 
-export interface AuthSignUpInput {
-    username: string;
-    email: string;
-    password: string;
-}
-
-export interface AuthPayloadInput {
-    email: string;
-    password: string;
-}
-
-export interface AuthPayloadOutput {
-    token?: string;
-    error?: AuthPayloadInput | null;
-}
 
 export function signIn(payload: AuthPayloadInput): Promise<AuthPayloadOutput> {
   return new Promise((resolve, reject) => {

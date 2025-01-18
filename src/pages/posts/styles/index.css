@@ -1,0 +1,20 @@
+.post-container {
+    @apply flex justify-start flex-row;
+}
+
+.post-title {
+    @apply basis-1/4;
+}
+
+.post-author {
+    margin-top: -30px;
+    @apply italic;
+}
+
+.post-content {
+    @apply grid grid-rows-3 grid-flow-col gap-4 justify-start;
+}
+
+.post-content p {
+    @apply row-span-3 text-left text-wrap leading-normal;
+}

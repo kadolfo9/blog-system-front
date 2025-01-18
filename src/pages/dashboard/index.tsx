@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import { 
   useEffect,
+  useMemo,
   useState 
 } from "react";
 import { useNavigate } from "react-router";
@@ -28,20 +29,19 @@ function DashboardPage() {
   const { user, signed } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const fetchAllData = useMemo(() => async () => {
     async function getUser() {
       const user = await ProfileService.getCurrentUser();
       return user;
     }
 
-    async function getPosts() {
-      const posts = await PostsService.getAllPosts((await getUser()).id);
-            
-      setPosts(posts);
-    }
+    const posts = await PostsService.getAllPosts((await getUser()).id);
+    setPosts(posts);
+  }, []);
 
-    getPosts();
-  }, [navigate, signed]);
+  useEffect(() => {
+    fetchAllData();
+  }, [navigate, signed, fetchAllData]);
 
   const postList = posts.posts?.map(post => (
     <TableRow

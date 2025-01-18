@@ -31,7 +31,12 @@ export interface Post {
     content: string;
     createdAt: string;
     updatedAt: string;
-    userId: number;
+    userId?: string;
+
+    user: {
+      id: string;
+      username: string;
+    }
 }
 
 export interface PostList {
