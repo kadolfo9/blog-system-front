@@ -125,3 +125,9 @@
   display: flex;
   @apply h-screen
 }
+
+.center {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}

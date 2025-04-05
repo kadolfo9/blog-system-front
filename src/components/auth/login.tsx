@@ -11,8 +11,8 @@ import { Input } from "../ui/input";
 import { ForgotPasswordScreen } from "./forgot";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
-import * as AuthService from "@/services/auth";
 import { AuthPayloadInput } from "@/@types/auth";
+import { useAuth } from "@/hooks/use-auth";
 
 
 const formSchema = z.object({
@@ -31,6 +31,7 @@ const formSchema = z.object({
 
 export function LoginScreen() {
   const navigate = useNavigate();
+  const auth = useAuth();
 
   const [message, setMessage] = useState<{ email: string[], password: string[] }>({
     email: [],
@@ -45,19 +46,21 @@ export function LoginScreen() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    AuthService.signIn(values as AuthPayloadInput)
-      .then((response) => {
-        if (response.token && typeof response.token === 'string') {
-          navigate('/dashboard');
-          return;
-        }
-      }).catch((reason) => {
-        if (reason.email) {
-          setMessage({ email: [reason.email], password: [] });
-          return;
-        }
-      })
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const response = await auth.handleAuth(values as AuthPayloadInput);
+
+    if (response.token) {
+      navigate('/dashboard');
+      return;
+    }
+
+    if (response.error) {
+      setMessage({
+        email: [response.error?.email as unknown as string],
+        password: [response.error?.password as unknown as string] 
+      });
+      return;
+    }
   }
 
   function getError(error: 'email' | 'password') {

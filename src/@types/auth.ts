@@ -1,3 +1,4 @@
+import { JwtPayload } from 'jwt-decode';
 import { ReactNode } from 'react';
 
 export interface AuthSignUpInput {
@@ -21,9 +22,16 @@ export interface AuthProviderProps {
 }
 
 export interface AuthContextUser {
+  id?: string;
   email?: string;
   token?: string;
 }
+
+export type AuthContextJwtUser = JwtPayload & {
+  email: string;
+  username: string;
+  id: string;
+};
 
 export interface AuthContextData {
   signed: boolean;
