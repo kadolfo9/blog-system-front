@@ -4,10 +4,12 @@ import { HomePage } from "@/pages/home";
 import { AuthPage } from "@/pages/auth";
 import { ProtectedRoute } from "@/components/global/protected";
 import { PostPage } from "@/pages/post";
+import { BaseElement } from "@/components/global/base";
 
 export const Router = createBrowserRouter([
   {
     path: '/',
+    element: <BaseElement />,
     children: [
       {
         index: true,
