@@ -2,6 +2,7 @@ import { PostData } from "@/@types/post";
 import { Button } from "../ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../ui/card";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
 
 type Props = { post: PostData };
 
@@ -15,6 +16,8 @@ export function PostCard({ post } : Props) {
   if (content.length > safeLength) {
     content = content.slice(0, safeLength) + "...";
   }
+
+  useEffect(() => {}, [navigate]);
 
   function handleClick() {
     navigate(`/posts/${post.id}`);
@@ -35,7 +38,7 @@ export function PostCard({ post } : Props) {
     </CardContent>
 
     <CardFooter className="flex justify-between">
-      <Button onClick={handleClick}>Ler mais</Button>
+      <Button variant="primary" onClick={handleClick}>Ler mais</Button>
     </CardFooter>
   </Card>
 }

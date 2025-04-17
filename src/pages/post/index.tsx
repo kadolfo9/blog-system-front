@@ -18,7 +18,9 @@ export function PostPage() {
     fetchData();
   }, [fetchData, navigate]);
 
-  return <div>
-    <h2>{ post?.title }</h2>
-  </div>
+  return <>
+    <div style={{ marginTop: '5rem' }}>
+      <h1>{post?.title}</h1>
+    </div>
+  </>
 }

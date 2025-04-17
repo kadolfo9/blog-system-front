@@ -20,7 +20,7 @@ function HomePage()
   }, [auth, fetchData]);
 
   return <>
-    <div className="center">
+    <div className="center" style={{ marginTop: '8rem' }}>
       <div className="grid grid-cols-4 gap-4">
         {posts.map((post) => <PostCard key={post.id} post={post} />)}
       </div>

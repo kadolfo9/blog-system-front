@@ -1,59 +1,80 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+import { type Assign, ark } from '@ark-ui/react'
 
-import { cn } from "@/lib/utils"
+import { cn, type VariantProps, tv } from '@/lib/utils'
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-  {
-    variants: {
-      variant: {
-        default:
-          "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
-        outline:
-          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
-        ghost:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
-        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
-        icon: "size-9",
-      },
+type ButtonProps = Assign<
+  React.CustomComponentPropsWithRef<typeof ark.button>,
+  VariantProps<typeof buttonVariants>
+>
+
+const buttonVariants = tv({
+  base: [
+    [
+      'isolate inline-flex cursor-pointer select-none items-center justify-center whitespace-nowrap rounded-xl font-sans font-semibold tracking-normal',
+      'not-disabled:inset-ring-1 disabled:cursor-not-allowed disabled:bg-fill-1 disabled:text-disabled',
+      'transition-[background-color,scale] ease-in-out-quad not-disabled:active:scale-95',
+    ],
+  ],
+  variants: {
+    variant: {
+      primary: ['bg-brand text-fg-2', 'not-disabled:hover:bg-brand/90'],
+      secondary: [
+        'inset-ring-border bg-surface-2 text-fg-1',
+        'not-disabled:hover:bg-fill-2',
+      ],
+      ghost: [
+        'bg-transparent text-brand transition-[color_box-shadow]',
+        'not-disabled:hover:inset-ring-2 not-disabled:hover:text-brand/90',
+      ],
+      destructive: [
+        'inset-ring-transparent bg-danger text-fg-2',
+        'not-disabled:hover:bg-danger/90',
+      ],
     },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
+    size: {
+      sm: 'h-9 gap-1 px-3 text-sm/5.5 [&_svg]:size-5',
+      md: 'h-11 gap-2 px-4 text-base [&_svg]:size-6',
+      lg: 'h-11 px-4 text-lg/7 [&_svg]:size-7',
+      xl: 'h-14 px-6 text-xl/8 [&_svg]:size-8',
     },
-  }
-)
+    iconOnly: {
+      true: 'aspect-square px-0',
+    },
+  },
+  compoundVariants: [
+    {
+      variant: ['primary', 'ghost'],
+      className: 'inset-ring-brand',
+    },
+    {
+      size: ['lg', 'xl'],
+      className: 'gap-3',
+    },
+  ],
+  defaultVariants: {
+    variant: 'primary',
+    size: 'md',
+    iconOnly: false,
+  },
+})
 
-function Button({
-  className,
-  variant,
-  size,
-  asChild = false,
-  ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
-  const Comp = asChild ? Slot : "button"
-
+function Button({ className, variant, size, iconOnly, ...props }: ButtonProps) {
   return (
-    <Comp
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+    <ark.button
       {...props}
+      className={cn(
+        buttonVariants({
+          className,
+          variant,
+          size,
+          iconOnly,
+        }),
+      )}
+      data-scope="button"
+      data-focusable
     />
   )
 }
 
 export { Button, buttonVariants }
+export type { ButtonProps }
