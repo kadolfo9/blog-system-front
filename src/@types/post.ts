@@ -2,9 +2,26 @@ export interface PostData {
   id: string;
   title: string;
   content: string;
-  userId: string;
   createdAt: string;
   updatedAt: string;
+
+  user: {
+    id: string;
+    username: string;
+  }
+}
+
+export interface PostCommentData {
+  content: string;
+  // post: PostData;
+  
+  createdAt: string;
+  updatedAt: string;
+
+  user: {
+    id: string;
+    username: string;
+  }
 }
 
 export interface PostList {
