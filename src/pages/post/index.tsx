@@ -1,11 +1,15 @@
-import { PostCommentData, PostData } from "@/@types/post";
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { PostData, PostCommentData } from "@/@types/post";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Separator } from "@radix-ui/react-dropdown-menu";
+import { CalendarIcon, MessageSquare, Share2 } from "lucide-react";
+import { useState, useMemo, useEffect } from "react";
+import { useParams, useNavigate } from "react-router";
+
 import * as PostsService from "@/services/posts";
 import * as CommentService from "@/services/comments";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { PostComments } from "@/components/posts/post-comments";
+import { PostCommentsV2 } from "@/components/posts/post-comments";
+import { PostCommentsForm } from "@/components/posts/post-comment-form";
 
 export function PostPage() {
   const params = useParams();
@@ -31,31 +35,61 @@ export function PostPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
+  const date = new Date(post?.createdAt as unknown as string);
+
   return <>
-    <div style={{ marginTop: '5rem' }}>
-      <h3 className="text-2xl font-bold center">{post?.title}</h3>
+    <div className="container mx-auto px-4 py-8 max-w-4xl mt-15">
+      <div className="space-y-4 mb-8">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <span className="flex items-center gap-1">
+            <CalendarIcon className="h-4 w-4" />
+            {date.toLocaleString()}
+          </span>
+        </div>
 
-      <h4 className="center">Publicado por: {post?.user.username} | Data: {post?.createdAt}</h4>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+          {post?.title}
+        </h1>
 
-      <div style={{ marginTop: '2rem' }} className="text-pretty md:text-balance center text-center break-normal">
-        {post?.content}
-      </div>
-
-      <div>
-        <h2 className="font-bold text-2x1 center" style={{ marginTop: '2rem' }}>Comentários:</h2>
-        <div className="grid gap-2 place-items-center items-center justify-center">
-          <Textarea placeholder="Insira seu comentário aqui" style={{ width: '300px' }} />
-          <Button variant="ghost">Publicar</Button>
+        <div className="flex items-center gap-4">
+          <Avatar className="h-10 w-10">
+            <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Author" />
+            <AvatarFallback>{post?.user.username.at(0)?.toUpperCase()}</AvatarFallback>
+          </Avatar>
+          <div>
+            <p className="font-medium">{post?.user.username}</p>
+          </div>
         </div>
       </div>
 
-      <div>
-        <h2 className="font-bold text-2x1 center" style={{ marginTop: '1rem' }}>Comentários recentes:</h2>
-        <PostComments 
-          post={post as unknown as PostData} 
-          comments={comments as unknown as PostCommentData[]}
-        />
+      <div className="flex items-center justify-between mb-8 text-sm text-muted-foreground">
+        <div className="flex items-center gap-4">
+          <span className="flex items-center gap-1">
+            <MessageSquare className="h-4 w-4" />
+            {comments?.length ?? 0} comentário(s)
+          </span>
+        </div>
+        <Button variant="secondary" size="sm" className="flex items-center gap-1">
+          <Share2 className="h-4 w-4" />
+                  Compartilhar
+        </Button>
+      </div>
+
+      <div className="prose prose-lg max-w-none">
+        {post?.content}
+      </div>
+
+      <Separator className="my-12" />
+      <div className="space-y-6">
+        <h3 className="text-2xl font-bold">Comentários ({comments?.length ?? 0})</h3>
+
+        <PostCommentsForm postId={post?.id} />
+
+        {comments?.map((comment, key) => (
+          <PostCommentsV2 key={key} comment={comment} />
+        ))}
       </div>
     </div>
+
   </>
 }

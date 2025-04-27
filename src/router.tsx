@@ -3,8 +3,9 @@ import { createBrowserRouter } from "react-router";
 import { HomePage } from "@/pages/home";
 import { AuthPage } from "@/pages/auth";
 import { ProtectedRoute } from "@/components/global/protected";
-import { PostPage } from "@/pages/post";
 import { BaseElement } from "@/components/global/base";
+import { ProfileScreen } from "./pages/profile";
+import { PostPage } from "./pages/post";
 
 export const Router = createBrowserRouter([
   {
@@ -20,8 +21,8 @@ export const Router = createBrowserRouter([
         element: <AuthPage />
       },
       {
-        path: '/dashboard',
-        element: <ProtectedRoute children={<HomePage />} />
+        path: '/profile',
+        element: <ProtectedRoute children={<ProfileScreen />} />
       },
       {
         path: '/posts/:postId',

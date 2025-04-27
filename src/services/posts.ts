@@ -15,14 +15,12 @@ export function createPost(data: CreatePostInput): Promise<CreatePostOutput> {
   });
 }
 
-export function getAllPostsByUserId(userId: string): Promise<PostList> {
+export function getAllPostsByUserId(userId: string): Promise<PostData[]> {
   return new Promise((resolve, reject) => {
     API.get(`/posts/users/${userId}`)
       .then((response) => {
         if (response.data) {
-          resolve({
-            posts: response.data,
-          });
+          resolve(response.data);
         }
       })
       .catch((error) => reject(error));

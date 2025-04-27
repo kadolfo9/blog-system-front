@@ -3,6 +3,10 @@
 
 @import "./globals.css";
 
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .centralize {
   justify-content: center;
   align-items: center;
@@ -35,5 +39,5 @@
 
 .menu li a {
   display: block;
-  padding: 10px;
+  padding: 5px;
 }

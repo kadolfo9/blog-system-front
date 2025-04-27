@@ -50,7 +50,7 @@ export function LoginScreen() {
     const response = await auth.handleAuth(values as AuthPayloadInput);
 
     if (response.token) {
-      navigate('/dashboard');
+      navigate('/profile');
       return;
     }
 

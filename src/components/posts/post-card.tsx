@@ -19,6 +19,8 @@ export function PostCard({ post } : Props) {
 
   useEffect(() => {}, [navigate]);
 
+  const createDate = new Date(createdAt);
+
   function handleClick() {
     navigate(`/posts/${post.id}`);
   }
@@ -26,7 +28,7 @@ export function PostCard({ post } : Props) {
   return <Card className="w-[350px]">
     <CardHeader>
       <CardTitle>{title}</CardTitle>
-      <CardDescription>Publicado em: {createdAt}</CardDescription>
+      <CardDescription>Publicado em: {createDate.toLocaleString()}</CardDescription>
     </CardHeader>
 
     <CardContent className="grid gap-4">
