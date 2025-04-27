@@ -1,54 +1,50 @@
-# React + TypeScript + Vite
+# BlogSystem - Front
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **BlogSystem**! This project is built with a modern stack to deliver a high-performance, stylish, and responsive application.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**BlogSystem** utilizes a range of cutting-edge technologies including:
 
-## Expanding the ESLint configuration
+- [**React**](https://react.dev) – A powerful library for building interactive user interfaces.
+- [**Vite**](https://vite.dev) – A blazing-fast build tool and development server.
+- [**Tailwind CSS**](https://tailwindcss.com) – A utility-first CSS framework for rapid and customizable design.
+- [**ArkUI**](https://ark-ui.com) – A headless UI library offering over 45 fully accessible components.
+- [**Shadcn**](https://ui.shadcn.com) – An open-source UI solution that provides a collection of beautifully-designed, customizable, and accessible components.
+- [**Hynix**](https://github.com/lucasaugustscode/hynix) – A powerful minimalist collection of elegant and accessible UI, built with React, Tailwind CSS, and Ark UI.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+These tools work together to create a seamless development experience and an immersive live preview for end users.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Installation
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+To get started with the project, follow these steps:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Clone the Repository:**
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+   ```bash
+   git clone https://github.com/kadolfo9/blog-system-front
+   ```
+2. **Install Dependencies:**
+
+	```bash
+	npm install
+	```
+
+3. **Run the Development Server:**
+	```bash
+	npm run dev
+	```
+##
+
+**Important Note**
+Before running the application, make sure that your server is active. [Server Link](https://github.com/kadolfo9/blog-system-nest)
+
+##
+
+**Live Preview**
+Experience the project in action by visiting the live preview site: [Preview Site URL](https://github.com/kadolfo9/blog-system-front)
+
+##
+
+**Contributing**
+Contributions are welcome! If you would like to help improve this project, please consider opening an issue or submitting a pull request.
