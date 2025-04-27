@@ -9,7 +9,6 @@ Welcome to **BlogSystem**! This project is built with a modern stack to deliver 
 - [**React**](https://react.dev) – A powerful library for building interactive user interfaces.
 - [**Vite**](https://vite.dev) – A blazing-fast build tool and development server.
 - [**Tailwind CSS**](https://tailwindcss.com) – A utility-first CSS framework for rapid and customizable design.
-- [**ArkUI**](https://ark-ui.com) – A headless UI library offering over 45 fully accessible components.
 - [**Shadcn**](https://ui.shadcn.com) – An open-source UI solution that provides a collection of beautifully-designed, customizable, and accessible components.
 - [**Hynix**](https://github.com/lucasaugustscode/hynix) – A powerful minimalist collection of elegant and accessible UI, built with React, Tailwind CSS, and Ark UI.
 
@@ -34,6 +33,11 @@ To get started with the project, follow these steps:
 	```bash
 	npm run dev
 	```
+
+4. **Access the Project Page**:
+  ```bash
+  http://localhost:5173
+  ```
 ##
 
 **Important Note**
