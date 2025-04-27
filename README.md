@@ -10,7 +10,7 @@ Welcome to **BlogSystem**! This project is built with a modern stack to deliver 
 - [**Vite**](https://vite.dev) – A blazing-fast build tool and development server.
 - [**Tailwind CSS**](https://tailwindcss.com) – A utility-first CSS framework for rapid and customizable design.
 - [**Shadcn**](https://ui.shadcn.com) – An open-source UI solution that provides a collection of beautifully-designed, customizable, and accessible components.
-- [**Hynix**](https://github.com/lucasaugustscode/hynix) – A powerful minimalist collection of elegant and accessible UI, built with React, Tailwind CSS, and Ark UI.
+- [**Hynix**](https://github.com/lucasaugustsof/hynix) – A powerful minimalist collection of elegant and accessible UI, built with React, Tailwind CSS, and Ark UI.
 
 These tools work together to create a seamless development experience and an immersive live preview for end users.
 
