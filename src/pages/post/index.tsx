@@ -1,6 +1,6 @@
 import { PostData, PostCommentData } from "@/@types/post";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { CalendarIcon, MessageSquare, Share2 } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
@@ -52,10 +52,11 @@ export function PostPage() {
         </h1>
 
         <div className="flex items-center gap-4">
-          <Avatar className="h-10 w-10">
-            <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Author" />
-            <AvatarFallback>{post?.user.username.at(0)?.toUpperCase()}</AvatarFallback>
-          </Avatar>
+          <Avatar className="h-10 w-10"
+            src="/placeholder.svg?height=40&width=40"
+            altText="Author"
+            fallback={post?.user.username.charAt(0).toUpperCase()}
+          /> {/** TODO: fix username */}
           <div>
             <p className="font-medium">{post?.user.username}</p>
           </div>
@@ -83,7 +84,7 @@ export function PostPage() {
       <div className="space-y-6">
         <h3 className="text-2xl font-bold">Comentários ({comments?.length ?? 0})</h3>
 
-        <PostCommentsForm postId={post?.id} />
+        <PostCommentsForm postId={post?.id as unknown as string} />
 
         {comments?.map((comment, key) => (
           <PostCommentsV2 key={key} comment={comment} />

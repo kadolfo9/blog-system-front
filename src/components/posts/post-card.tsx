@@ -1,6 +1,6 @@
 import { PostData } from "@/@types/post";
 import { Button } from "../ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardBody, CardFooter } from "../ui/card";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 
@@ -31,13 +31,13 @@ export function PostCard({ post } : Props) {
       <CardDescription>Publicado em: {createDate.toLocaleString()}</CardDescription>
     </CardHeader>
 
-    <CardContent className="grid gap-4">
+    <CardBody className="grid gap-4">
       <div className="grid w-full items-center gap-4">
         <div className="flex flex-col space-y-1.5">
           <p>{content}</p>
         </div>
       </div>
-    </CardContent>
+    </CardBody>
 
     <CardFooter className="flex justify-between">
       <Button variant="primary" onClick={handleClick}>Ler mais</Button>

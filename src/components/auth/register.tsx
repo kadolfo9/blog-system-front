@@ -1,5 +1,5 @@
 import { Button } from "../ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardBody, CardFooter } from "../ui/card";
 import { Input } from "../ui/input";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "../ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,7 +46,7 @@ export function RegisterScreen() {
     </CardHeader>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-        <CardContent className="space-y-2">
+        <CardBody className="space-y-2">
           <FormField
             control={form.control}
             name="username"
@@ -86,7 +86,7 @@ export function RegisterScreen() {
               </FormItem>
             )}
           />
-        </CardContent>
+        </CardBody>
         <CardFooter className="flex justify-between">
           <Button type="submit">Cadastrar</Button>
         </CardFooter>

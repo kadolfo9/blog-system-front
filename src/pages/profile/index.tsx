@@ -4,16 +4,26 @@ import * as PostService from "@/services/posts"
 import { PostData } from "@/@types/post"
 
 import { useState, useEffect } from "react";
+import { columns } from "./components/columns";
+import { DataTable } from "./components/data-table";
 
 export function ProfileScreen() {
   const navigate = useNavigate();
-  const auth = useAuth();
+  const { user, signed } = useAuth();
 
   const [posts, setPosts] = useState<PostData[]>([])
 
   useEffect(() => {
-    PostService.getAllPostsByUserId(auth.user?.id).then((r) => setPosts(r))
-  }, [])
+    if (!signed) navigate('/login')
 
-  return <></>
+    PostService.getAllPostsByUserId(user?.id as unknown as string).then((r) => setPosts(r))
+  }, [navigate, signed, user?.id])
+
+  return <>
+    <div className="rounded-md border p-10">
+      <div className="container mx-auto py-10">
+        <DataTable columns={columns} data={posts} />
+      </div>
+    </div>
+  </>
 }

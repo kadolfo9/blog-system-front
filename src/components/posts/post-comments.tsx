@@ -1,5 +1,5 @@
 import { PostCommentData } from "@/@types/post";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 
@@ -9,10 +9,11 @@ export function PostCommentsV2({ comment }: Props) {
   return <>
     <div className="border rounded-lg p-6 space-y-4">
       <div className="flex items-center gap-4">
-        <Avatar className="h-10 w-10">
-          <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Commenter" />
-          <AvatarFallback>{comment.user?.username.at(0)?.toUpperCase()}</AvatarFallback>
-        </Avatar>
+        <Avatar className="h-10 w-10" 
+          src="/placeholder.svg?height=40&width=40" 
+          altText="Commenter"
+          fallback={comment.user?.username.charAt(0).toUpperCase()}
+        />
         <div>
           <p className="font-medium">{comment.user?.username}</p>
           <p className="text-sm text-muted-foreground flex items-center gap-1">
