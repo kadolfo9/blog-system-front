@@ -8,7 +8,7 @@ import { useParams, useNavigate } from "react-router";
 
 import * as PostsService from "@/services/posts";
 import * as CommentService from "@/services/comments";
-import { PostCommentsV2 } from "@/components/posts/post-comments";
+import { PostComments } from "@/components/posts/post-comments";
 import { PostCommentsForm } from "@/components/posts/post-comment-form";
 
 export function PostPage() {
@@ -87,7 +87,7 @@ export function PostPage() {
         <PostCommentsForm postId={post?.id as unknown as string} />
 
         {comments?.map((comment, key) => (
-          <PostCommentsV2 key={key} comment={comment} />
+          <PostComments key={key} comment={comment} />
         ))}
       </div>
     </div>

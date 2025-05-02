@@ -1,5 +1,5 @@
 export type CreateCommentInput = {
-    postId: string;
-    userId: string;
-    content: string;
-}
+  postId: string;
+  userId: string;
+  content: string;
+};

@@ -5,7 +5,7 @@ import { CalendarIcon } from "lucide-react";
 
 type Props = { comment: PostCommentData };
 
-export function PostCommentsV2({ comment }: Props) {
+export function PostComments({ comment }: Props) {
   return <>
     <div className="border rounded-lg p-6 space-y-4">
       <div className="flex items-center gap-4">

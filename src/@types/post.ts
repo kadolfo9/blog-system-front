@@ -8,20 +8,20 @@ export interface PostData {
   user: {
     id: string;
     username: string;
-  }
+  };
 }
 
 export interface PostCommentData {
   content: string;
   // post: PostData;
-  
+
   createdAt: string;
   updatedAt: string;
 
   user: {
     id: string;
     username: string;
-  }
+  };
 }
 
 export interface PostList {
