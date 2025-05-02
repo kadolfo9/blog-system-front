@@ -1,8 +1,8 @@
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
+  TabsToggle,
+  TabsToggleContent,
+  TabsToggleList,
+  TabsToggleTrigger,
 } from "@/components/ui/tabs"
 import { LoginScreen } from "@/components/auth/login"
 import { RegisterScreen } from "@/components/auth/register"
@@ -10,18 +10,18 @@ import { RegisterScreen } from "@/components/auth/register"
 export function AuthPage() {
   return (
     <div className="centralize">
-      <Tabs defaultValue="login" className="w-[400px]">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="login">Login</TabsTrigger>
-          <TabsTrigger value="password">Cadastro</TabsTrigger>
-        </TabsList>
-        <TabsContent value="login">
+      <TabsToggle defaultValue="login" className="w-[420px]">
+        <TabsToggleList className="w-full text-center justify-center">
+          <TabsToggleTrigger value="login">Login</TabsToggleTrigger>
+          <TabsToggleTrigger value="password">Cadastro</TabsToggleTrigger>
+        </TabsToggleList>
+        <TabsToggleContent value="login">
           <LoginScreen />
-        </TabsContent>
-        <TabsContent value="password">
+        </TabsToggleContent>
+        <TabsToggleContent value="password">
           <RegisterScreen />
-        </TabsContent>
-      </Tabs>
+        </TabsToggleContent>
+      </TabsToggle>
     </div>
   )
 }

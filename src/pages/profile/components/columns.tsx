@@ -1,8 +1,8 @@
 import { PostData } from "@/@types/post";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
+import { Menu } from "@ark-ui/react";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 
 export const columns: ColumnDef<PostData>[] = [
   {
@@ -41,23 +41,26 @@ export const columns: ColumnDef<PostData>[] = [
       //const post = row.original
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="primary" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            <DropdownMenuItem>
-              Visualizar Publicação
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Editar Publicação</DropdownMenuItem>
-            <DropdownMenuItem>Apagar Publicação</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Menu.Root>
+          <Menu.Trigger>
+            <Button variant="primary">...</Button>
+          </Menu.Trigger>
+          <Menu.Positioner>
+            <Menu.Content>
+              <Menu.ItemGroup>
+                <Menu.ItemGroupLabel>Ações</Menu.ItemGroupLabel>
+                <Menu.Separator />
+                <Menu.Item value="view_post">
+                  Ver publicação
+                </Menu.Item>
+                <Menu.Separator />
+                <Menu.Item value="edit_post">
+                  Editar publicação
+                </Menu.Item>
+              </Menu.ItemGroup>
+            </Menu.Content>
+          </Menu.Positioner>
+        </Menu.Root>
       )
     },
   }

@@ -1,64 +1,203 @@
-import * as React from "react"
-import * as TabsPrimitive from "@radix-ui/react-tabs"
+import * as React from 'react'
 
-import { cn } from "@/lib/utils"
+import type { Assign } from '@ark-ui/react'
+import { Tabs as ArkTabs, useTabs, useTabsContext } from '@ark-ui/react/tabs'
 
-function Tabs({
-  className,
-  ...props
-}: React.ComponentProps<typeof TabsPrimitive.Root>) {
-  return (
-    <TabsPrimitive.Root
-      data-slot="tabs"
-      className={cn("flex flex-col gap-2", className)}
-      {...props}
-    />
-  )
+import { AnimatePresence, motion } from 'motion/react'
+
+import { cn, tv, type VariantProps } from "@/lib/utils"
+import { recursiveClone } from '@/lib/recursive-clone'
+
+//---------------------------------
+// Constants
+//---------------------------------
+
+const TABS_TOGGLE_PARTS = {
+  Root: 'TabsToggle',
+  List: 'TabsToggleList',
+  Trigger: 'TabsToggleTrigger',
+  Content: 'TabsToggleContent',
 }
 
-function TabsList({
-  className,
-  ...props
-}: React.ComponentProps<typeof TabsPrimitive.List>) {
+//---------------------------------
+// Variants
+//---------------------------------
+
+const tabsVariantsSlots = tv({
+  slots: {
+    root: null,
+    list: 'inline-flex gap-0.5 rounded-xl bg-fill-1 p-0.5',
+    trigger: 'group relative w-fit cursor-pointer outline-hidden',
+  },
+  variants: {
+    size: {
+      sm: {
+        list: 'h-8',
+        trigger: 'px-3 *:gap-2 *:text-sm/5.5 *:[&_svg]:size-5',
+      },
+      md: {
+        list: 'h-11',
+        trigger: 'px-4 *:gap-2.5 *:text-base *:[&_svg]:size-6',
+      },
+      lg: {
+        list: 'h-14',
+        trigger: 'px-5 *:gap-3 *:text-lg/7 *:[&_svg]:size-7',
+      },
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+})
+
+const { root, list, trigger } = tabsVariantsSlots()
+
+//---------------------------------
+// Types
+//---------------------------------
+
+type TabsToggleSharedProps = VariantProps<typeof tabsVariantsSlots>
+
+type TabsToggleProps = Assign<
+  React.CustomComponentPropsWithRef<typeof ArkTabs.Root>,
+  TabsToggleSharedProps
+>
+
+//---------------------------------
+// TabsToggle
+//---------------------------------
+
+function TabsToggle({ children, className, size, ...props }: TabsToggleProps) {
+  const keyPrefix = React.useId()
+
+  const extendedChildrenWithInjectedProps = recursiveClone(children, {
+    inject: {
+      size,
+    },
+    match: [TABS_TOGGLE_PARTS.List, TABS_TOGGLE_PARTS.Trigger],
+    keyPrefix,
+  })
+
   return (
-    <TabsPrimitive.List
-      data-slot="tabs-list"
+    <ArkTabs.Root
+      {...props}
       className={cn(
-        "bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]",
-        className
+        root({
+          className,
+        }),
       )}
-      {...props}
-    />
+      deselectable={false}
+    >
+      {extendedChildrenWithInjectedProps}
+    </ArkTabs.Root>
   )
 }
 
-function TabsTrigger({
+TabsToggle.displayName = TABS_TOGGLE_PARTS.Root
+
+//---------------------------------
+// TabsToggleList
+//---------------------------------
+
+function TabsToggleList({
   className,
+  size,
   ...props
-}: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
+}: Assign<
+  React.CustomComponentPropsWithRef<typeof ArkTabs.List>,
+  TabsToggleSharedProps
+>) {
   return (
-    <TabsPrimitive.Trigger
-      data-slot="tabs-trigger"
+    <ArkTabs.List
+      {...props}
       className={cn(
-        "data-[state=active]:bg-background dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-sm [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className
+        list({
+          className,
+          size,
+        }),
       )}
-      {...props}
     />
   )
 }
 
-function TabsContent({
+TabsToggleList.displayName = TABS_TOGGLE_PARTS.List
+
+//---------------------------------
+// TabsToggleTrigger
+//---------------------------------
+
+function TabsToggleTrigger({
+  children,
   className,
+  size,
   ...props
-}: React.ComponentProps<typeof TabsPrimitive.Content>) {
+}: Assign<
+  React.ComponentPropsWithRef<typeof ArkTabs.Trigger>,
+  TabsToggleSharedProps
+>) {
+  const { value } = useTabsContext()
+  const isSelectedValue = props.value === value
+
   return (
-    <TabsPrimitive.Content
-      data-slot="tabs-content"
-      className={cn("flex-1 outline-none", className)}
+    <ArkTabs.Trigger
       {...props}
-    />
+      className={cn(
+        trigger({
+          className,
+          size,
+        }),
+      )}
+    >
+      <span
+        className={cn(
+          'relative z-10 inline-flex h-full select-none items-center whitespace-nowrap transition-colors duration-225 ease-out-circ',
+          'font-sans font-semibold text-fg-1/40 tracking-normal',
+          'group-data-selected:select-auto group-data-selected:text-fg-1 group-data-selected:[&_svg]:fill-fill-5',
+        )}
+      >
+        {children}
+      </span>
+
+      <AnimatePresence mode="popLayout">
+        {isSelectedValue && (
+          <motion.span
+            layoutId="focused-value"
+            className={cn(
+              'absolute inset-0 z-0 size-full place-items-center rounded-[calc(var(--radius-lg)_+_var(--radius-xs))] border border-border bg-surface-1 text-fg-1',
+              'shadow-black/6 shadow-xs dark:shadow-white/6',
+            )}
+            initial={false}
+            transition={{
+              layout: {
+                duration: 0.25,
+                ease: [0.215, 0.61, 0.355, 1],
+              },
+            }}
+          />
+        )}
+      </AnimatePresence>
+    </ArkTabs.Trigger>
   )
 }
 
-export { Tabs, TabsList, TabsTrigger, TabsContent }
+TabsToggleTrigger.displayName = TABS_TOGGLE_PARTS.Trigger
+
+//---------------------------------
+// TabsToggleContent
+//---------------------------------
+
+const TabsToggleContent = ArkTabs.Content
+TabsToggleContent.displayName = TABS_TOGGLE_PARTS.Content
+
+//---------------------------------
+// Exports
+//---------------------------------
+
+export {
+  TabsToggle,
+  TabsToggleContent,
+  TabsToggleList,
+  TabsToggleTrigger,
+  useTabs
+}
+export type { TabsToggleProps }
