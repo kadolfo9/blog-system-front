@@ -75,14 +75,14 @@ export function canToggleList(editor: Editor | null, type: ListType): boolean {
   }
 
   switch (type) {
-    case "bulletList":
-      return editor.can().toggleBulletList()
-    case "orderedList":
-      return editor.can().toggleOrderedList()
-    case "taskList":
-      return editor.can().toggleList("taskList", "taskItem")
-    default:
-      return false
+  case "bulletList":
+    return editor.can().toggleBulletList()
+  case "orderedList":
+    return editor.can().toggleOrderedList()
+  case "taskList":
+    return editor.can().toggleList("taskList", "taskItem")
+  default:
+    return false
   }
 }
 
@@ -90,14 +90,14 @@ export function isListActive(editor: Editor | null, type: ListType): boolean {
   if (!editor) return false
 
   switch (type) {
-    case "bulletList":
-      return editor.isActive("bulletList")
-    case "orderedList":
-      return editor.isActive("orderedList")
-    case "taskList":
-      return editor.isActive("taskList")
-    default:
-      return false
+  case "bulletList":
+    return editor.isActive("bulletList")
+  case "orderedList":
+    return editor.isActive("orderedList")
+  case "taskList":
+    return editor.isActive("taskList")
+  default:
+    return false
   }
 }
 
@@ -105,15 +105,15 @@ export function toggleList(editor: Editor | null, type: ListType): void {
   if (!editor) return
 
   switch (type) {
-    case "bulletList":
-      editor.chain().focus().toggleBulletList().run()
-      break
-    case "orderedList":
-      editor.chain().focus().toggleOrderedList().run()
-      break
-    case "taskList":
-      editor.chain().focus().toggleList("taskList", "taskItem").run()
-      break
+  case "bulletList":
+    editor.chain().focus().toggleBulletList().run()
+    break
+  case "orderedList":
+    editor.chain().focus().toggleOrderedList().run()
+    break
+  case "taskList":
+    editor.chain().focus().toggleList("taskList", "taskItem").run()
+    break
   }
 }
 
