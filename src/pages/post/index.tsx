@@ -26,6 +26,8 @@ export function PostPage() {
   const fetchComments = useMemo(() => async () => {
     const data = await CommentService.getAllComments(params.postId!);
 
+    console.log(data)
+
     if (data) setComments(data);
   }, [params.postId]);
 

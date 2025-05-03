@@ -6,6 +6,7 @@ import { ProtectedRoute } from "@/components/global/protected";
 import { BaseElement } from "@/components/global/base";
 import { ProfileScreen } from "./pages/profile";
 import { PostPage } from "./pages/post";
+import { PostEditorScreen } from "./pages/post/editor";
 
 export const Router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const Router = createBrowserRouter([
       {
         path: '/posts/:postId',
         element: <ProtectedRoute children={<PostPage />} />
+      },
+      {
+        path: '/posts/:postId/edit',
+        element: <ProtectedRoute children={<PostEditorScreen />} />
       }
     ]
   }

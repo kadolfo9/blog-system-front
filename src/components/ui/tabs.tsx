@@ -198,6 +198,6 @@ export {
   TabsToggleContent,
   TabsToggleList,
   TabsToggleTrigger,
-  useTabs
+  useTabs,
 }
 export type { TabsToggleProps }
