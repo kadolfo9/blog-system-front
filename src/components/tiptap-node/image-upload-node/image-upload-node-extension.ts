@@ -102,12 +102,12 @@ export const ImageUploadNode = Node.create<ImageUploadNodeOptions>({
     return {
       setImageUploadNode:
         (options = {}) =>
-          ({ commands }) => {
-            return commands.insertContent({
-              type: this.name,
-              attrs: options,
-            });
-          },
+        ({ commands }) => {
+          return commands.insertContent({
+            type: this.name,
+            attrs: options,
+          });
+        },
     };
   },
 
