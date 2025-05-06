@@ -26,8 +26,6 @@ export function PostPage() {
   const fetchComments = useMemo(() => async () => {
     const data = await CommentService.getAllComments(params.postId!);
 
-    console.log(data)
-
     if (data) setComments(data);
   }, [params.postId]);
 
@@ -58,7 +56,7 @@ export function PostPage() {
             src="/placeholder.svg?height=40&width=40"
             altText="Author"
             fallback={post?.user.username.charAt(0).toUpperCase()}
-          /> {/** TODO: fix username */}
+          />
           <div>
             <p className="font-medium">{post?.user.username}</p>
           </div>
@@ -78,9 +76,7 @@ export function PostPage() {
         </Button>
       </div>
 
-      <div className="prose prose-lg max-w-none">
-        {post?.content}
-      </div>
+      <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post?.content }} />
 
       <Separator className="my-12" />
       <div className="space-y-6">

@@ -1,4 +1,4 @@
-import { CreatePostInput, CreatePostOutput, PostData, PostList } from '@/@types/post';
+import { CreatePostInput, CreatePostOutput, EditPostInput, PostData, PostList, UpdatePostOutput } from '@/@types/post';
 import { API } from '@/api';
 
 export function createPost(data: CreatePostInput): Promise<CreatePostOutput> {
@@ -55,6 +55,20 @@ export function getPost(postId: string): Promise<PostData> {
       .then((response) => {
         if (response.status === 200 && response.data) {
           resolve(response.data);
+        }
+      })
+      .catch((error) => reject(error));
+  });
+}
+
+export function updatePost(postId: string, input: EditPostInput): Promise<UpdatePostOutput> {
+  return new Promise((resolve, reject) => {
+    API.put(`/posts/edit/${postId}`, input)
+      .then((response) => {
+        if (response.status === 200) {
+          resolve({
+            statusCode: response.status,
+          });
         }
       })
       .catch((error) => reject(error));

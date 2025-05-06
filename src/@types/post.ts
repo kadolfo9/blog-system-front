@@ -34,7 +34,15 @@ export interface CreatePostInput {
   images?: Array<unknown>;
 }
 
-export interface CreatePostOutput {
+export interface PostOutputCommon {
   statusCode: number;
   error?: string;
 }
+
+export interface EditPostInput {
+  title: string;
+  content: string;
+}
+
+export type CreatePostOutput = PostOutputCommon;
+export type UpdatePostOutput = PostOutputCommon;

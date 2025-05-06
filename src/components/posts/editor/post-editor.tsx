@@ -65,6 +65,7 @@ import { useWindowSize } from "@/hooks/use-window-size"
 
 // --- Components ---
 import { ThemeToggle } from "@/components/tiptap-templates/simple/theme-toggle"
+import { Button as HButton } from "@/components/ui/button"
 
 // --- Lib ---
 import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils"
@@ -141,16 +142,12 @@ const MainToolbarContent = ({
 
       <ToolbarSeparator />
 
-      <ToolbarGroup>
-        <ImageUploadButton text="Add" />
-      </ToolbarGroup>
-
       <Spacer />
 
       {isMobile && <ToolbarSeparator />}
 
       <ToolbarGroup>
-        <ThemeToggle />
+       
       </ToolbarGroup>
     </>
   )
@@ -210,24 +207,17 @@ export function PostEditor({ content, onChange, placeholder = "Comece a escrever
       TaskList,
       TaskItem.configure({ nested: true }),
       Highlight.configure({ multicolor: true }),
-      Image,
+      //Image,
       Typography,
       Superscript,
       Subscript,
 
       Selection,
-      ImageUploadNode.configure({
-        accept: "image/*",
-        maxSize: MAX_FILE_SIZE,
-        limit: 3,
-        upload: handleImageUpload,
-        onError: (error) => console.error("Upload failed:", error),
-      }),
       TrailingNode,
       Link.configure({ openOnClick: false }),
-      Placeholder.configure({ placeholder: placeholder })
+      Placeholder.configure({ placeholder })
     ],
-    content: content,
+    content,
     onUpdate: ({ editor }) => onChange(editor.getHTML())
   })
 
@@ -236,6 +226,12 @@ export function PostEditor({ content, onChange, placeholder = "Comece a escrever
       setMobileView("main")
     }
   }, [isMobile, mobileView])
+
+  React.useEffect(() => {
+    if (editor && content !== editor.getHTML()) {
+      editor.commands.setContent(content)
+    }
+  }, [editor, content])
 
   return (
     <EditorContext.Provider value={{ editor }}>
