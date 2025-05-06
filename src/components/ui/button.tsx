@@ -2,17 +2,16 @@ import { type Assign, ark } from '@ark-ui/react'
 
 import { cn, type VariantProps, tv } from '@/lib/utils'
 
-type ButtonProps = Assign<
-  React.CustomComponentPropsWithRef<typeof ark.button>,
-  VariantProps<typeof buttonVariants>
->
+//---------------------------------
+// Variants
+//---------------------------------
 
 const buttonVariants = tv({
   base: [
     [
       'isolate inline-flex cursor-pointer select-none items-center justify-center whitespace-nowrap rounded-xl font-sans font-semibold tracking-normal',
       'not-disabled:inset-ring-1 disabled:cursor-not-allowed disabled:bg-fill-1 disabled:text-disabled',
-      'transition-[background-color,scale] ease-in-out-quad not-disabled:active:scale-95',
+      'transition-colors ease-out-quad',
     ],
   ],
   variants: {
@@ -58,6 +57,19 @@ const buttonVariants = tv({
   },
 })
 
+//---------------------------------
+// Types
+//---------------------------------
+
+type ButtonProps = Assign<
+  React.CustomComponentPropsWithRef<typeof ark.button>,
+  VariantProps<typeof buttonVariants>
+>
+
+//---------------------------------
+// Button
+//---------------------------------
+
 function Button({ className, variant, size, iconOnly, ...props }: ButtonProps) {
   return (
     <ark.button
@@ -75,6 +87,10 @@ function Button({ className, variant, size, iconOnly, ...props }: ButtonProps) {
     />
   )
 }
+
+//---------------------------------
+// Exports
+//---------------------------------
 
 export { Button, buttonVariants }
 export type { ButtonProps }

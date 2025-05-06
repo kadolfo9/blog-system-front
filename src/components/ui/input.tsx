@@ -1,20 +1,13 @@
+import * as React from 'react'
+
 import type { Assign } from '@ark-ui/react'
 import { Field as ArkField } from '@ark-ui/react/field'
-import * as React from 'react'
 
 import { cn, tv, type VariantProps } from '@/lib/utils'
 
-type InputSharedProps = VariantProps<typeof inputVariantsSlots>
-
-type InputProps = Assign<
-  Omit<React.CustomComponentPropsWithRef<typeof ArkField.Input>, 'prefix'>,
-  InputSharedProps
-> & {
-  prefix?: React.ReactNode
-  suffix?: React.ReactNode
-  prefixStyling?: boolean
-  suffixStyling?: boolean
-}
+//---------------------------------
+// Variants
+//---------------------------------
 
 const inputVariantsSlots = tv({
   slots: {
@@ -89,6 +82,22 @@ const inputVariantsSlots = tv({
   },
 })
 
+//---------------------------------
+// Types
+//---------------------------------
+
+type InputSharedProps = VariantProps<typeof inputVariantsSlots>
+
+type InputProps = Assign<
+  Omit<React.CustomComponentPropsWithRef<typeof ArkField.Input>, 'prefix'>,
+  InputSharedProps
+> & {
+  prefix?: React.ReactNode
+  suffix?: React.ReactNode
+  prefixStyling?: boolean
+  suffixStyling?: boolean
+}
+
 type AddonProps = Pick<
   React.ComponentPropsWithRef<'label'>,
   'children' | 'htmlFor'
@@ -97,6 +106,10 @@ type AddonProps = Pick<
   type: 'prefix' | 'suffix'
   styling?: boolean
 }
+
+//---------------------------------
+// InputAddon
+//---------------------------------
 
 function InputAddon({ size, type, styling = false, ...props }: AddonProps) {
   const { addon } = inputVariantsSlots()
@@ -116,6 +129,10 @@ function InputAddon({ size, type, styling = false, ...props }: AddonProps) {
     />
   )
 }
+
+//---------------------------------
+// Input
+//---------------------------------
 
 function Input({
   className,
@@ -177,6 +194,10 @@ function Input({
     </div>
   )
 }
+
+//---------------------------------
+// Exports
+//---------------------------------
 
 export { Input }
 export type { InputProps }

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useNavigate } from "react-router";
 
 import { Button } from "../ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardBody, CardFooter } from "../ui/card";
+import { Card } from "../ui/card";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { ForgotPasswordScreen } from "./forgot";
@@ -78,16 +78,16 @@ export function LoginScreen() {
     { getError('email') }
     { getError('password') }
 
-    <Card>
-      <CardHeader>
-        <CardTitle>Login</CardTitle>
-        <CardDescription>
+    <Card.Root>
+      <Card.Header>
+        <Card.Title>Login</Card.Title>
+        <Card.Description>
                   Autentique-se e faça novos posts!
-        </CardDescription>
-      </CardHeader>
+        </Card.Description>
+      </Card.Header>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-          <CardBody className="space-y-2">
+          <Card.Body className="space-y-2">
             <FormField
               control={form.control}
               name="email"
@@ -114,13 +114,13 @@ export function LoginScreen() {
                 </FormItem>
               )}
             />
-          </CardBody>
-          <CardFooter className="flex justify-between">
+          </Card.Body>
+          <Card.Footer className="flex justify-between">
             <Button type="submit">Login</Button>
             <ForgotPasswordScreen />
-          </CardFooter>
+          </Card.Footer>
         </form>
       </Form>
-    </Card>
+    </Card.Root>
   </>
 }

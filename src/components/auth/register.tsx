@@ -1,5 +1,5 @@
 import { Button } from "../ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardBody, CardFooter } from "../ui/card";
+import { Card } from "../ui/card";
 import { Input } from "../ui/input";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "../ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,16 +37,16 @@ export function RegisterScreen() {
     console.log(values)
   }
 
-  return <Card>
-    <CardHeader>
-      <CardTitle>Cadastro</CardTitle>
-      <CardDescription>
+  return <Card.Root>
+    <Card.Header>
+      <Card.Title>Cadastro</Card.Title>
+      <Card.Description>
         Cadastre-se e faça novos posts!
-      </CardDescription>
-    </CardHeader>
+      </Card.Description>
+    </Card.Header>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-        <CardBody className="space-y-2">
+        <Card.Body className="space-y-2">
           <FormField
             control={form.control}
             name="username"
@@ -86,11 +86,11 @@ export function RegisterScreen() {
               </FormItem>
             )}
           />
-        </CardBody>
-        <CardFooter className="flex justify-between">
+        </Card.Body>
+        <Card.Footer className="flex justify-between">
           <Button type="submit">Cadastrar</Button>
-        </CardFooter>
+        </Card.Footer>
       </form>
     </Form>
-  </Card>
+  </Card.Root>
 }
