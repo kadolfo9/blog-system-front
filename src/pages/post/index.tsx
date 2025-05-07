@@ -15,7 +15,7 @@ export function PostPage() {
   const params = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState<PostData>();
-  const [comments, setComments] = useState<PostCommentData[]>();
+  const [comments, setComments] = useState<PostCommentData[]>([]);
 
   const fetchData = useMemo(() => async () => {
     const data = await PostsService.getPost(params.postId!);
@@ -84,7 +84,7 @@ export function PostPage() {
 
         <PostCommentsForm postId={post?.id as unknown as string} />
 
-        {comments?.map((comment, key) => (
+        {comments.length > 0 && comments.map((comment, key) => (
           <PostComments key={key} comment={comment} />
         ))}
       </div>
