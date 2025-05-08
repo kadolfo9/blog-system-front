@@ -1,6 +1,6 @@
 import { PostData } from "@/@types/post";
 import { Button } from "@/components/ui/button";
-import { Menu } from "@ark-ui/react";
+import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
@@ -14,6 +14,7 @@ export const columns: ColumnDef<PostData>[] = [
     header: ({ column }) => <Button 
       variant="ghost" 
       className="text-right"
+      size="sm"
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
     >
       Criado em
@@ -41,26 +42,24 @@ export const columns: ColumnDef<PostData>[] = [
       //const post = row.original
 
       return (
-        <Menu.Root>
-          <Menu.Trigger>
+        <DropdownMenu.Root positioning={{ strategy: "fixed" }} composite={true}>
+          <DropdownMenu.Trigger>
             <Button variant="primary">...</Button>
-          </Menu.Trigger>
-          <Menu.Positioner>
-            <Menu.Content>
-              <Menu.ItemGroup>
-                <Menu.ItemGroupLabel>Ações</Menu.ItemGroupLabel>
-                <Menu.Separator />
-                <Menu.Item value="view_post">
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.ItemGroup>
+              <DropdownMenu.ItemGroupLabel>Ações</DropdownMenu.ItemGroupLabel>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Item value="view_post">
                   Ver publicação
-                </Menu.Item>
-                <Menu.Separator />
-                <Menu.Item value="edit_post">
+              </DropdownMenu.Item>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Item value="edit_post">
                   Editar publicação
-                </Menu.Item>
-              </Menu.ItemGroup>
-            </Menu.Content>
-          </Menu.Positioner>
-        </Menu.Root>
+              </DropdownMenu.Item>
+            </DropdownMenu.ItemGroup>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
       )
     },
   }

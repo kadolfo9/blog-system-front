@@ -62,6 +62,7 @@ export function DataTable<TData, TValue>({
             }
             className="max-w-sm"
           />
+          <Button size="sm" variant="primary" className="ml-2 mt-2">Nova Publicação</Button>
         </div>
 
         <div className="rounded-md border">

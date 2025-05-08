@@ -1,6 +1,5 @@
 import { PostCommentData } from "@/@types/post";
 import { Avatar } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 
 type Props = { comment: PostCommentData };
@@ -25,9 +24,6 @@ export function PostComments({ comment }: Props) {
       <p className="text-pretty md:text-balance break-normal">
         {comment.content}
       </p>
-      <Button variant="ghost" size="sm">
-                Responder
-      </Button>
     </div>
   </>
 }
