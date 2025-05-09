@@ -7,7 +7,12 @@ import { ArrowUpDown } from "lucide-react";
 export const columns: ColumnDef<PostData>[] = [
   {
     accessorKey: "title",
-    header: "Titulo"
+    header: "Titulo",
+    cell: ({ row }) => {
+      const route = `/posts/${row.original.id}`
+
+      return <a href={route}>{row.getValue("title")}</a>
+    }
   },
   {
     accessorKey: "createdAt",
@@ -38,9 +43,7 @@ export const columns: ColumnDef<PostData>[] = [
 
   {
     id: "actions",
-    cell: (/*{ row }*/) => {
-      //const post = row.original
-
+    cell: () => {
       return (
         <DropdownMenu.Root positioning={{ strategy: "fixed" }} composite={true}>
           <DropdownMenu.Trigger>
@@ -51,11 +54,14 @@ export const columns: ColumnDef<PostData>[] = [
               <DropdownMenu.ItemGroupLabel>Ações</DropdownMenu.ItemGroupLabel>
               <DropdownMenu.Separator />
               <DropdownMenu.Item value="view_post">
-                  Ver publicação
+                  Ver
               </DropdownMenu.Item>
               <DropdownMenu.Separator />
               <DropdownMenu.Item value="edit_post">
-                  Editar publicação
+                  Editar
+              </DropdownMenu.Item>
+              <DropdownMenu.Item value="delete_post">
+                  Apagar
               </DropdownMenu.Item>
             </DropdownMenu.ItemGroup>
           </DropdownMenu.Content>

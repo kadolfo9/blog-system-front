@@ -37,4 +37,5 @@ export interface AuthContextData {
   signed: boolean;
   user: AuthContextUser | null;
   handleAuth(payload: AuthPayloadInput): Promise<AuthPayloadOutput>;
+  handleLogout(): void;
 }

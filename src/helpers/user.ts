@@ -27,3 +27,11 @@ export const setAuthHeaders = () => {
     delete API.defaults.headers.Authorization;
   }
 };
+
+export const deleteAuthHeaders = () => {
+  const token = Cookies.get('VITE_SESSION_TOKEN');
+
+  if (token) {
+    Cookies.remove('VITE_SESSION_TOKEN');
+  }
+};

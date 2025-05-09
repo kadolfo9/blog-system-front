@@ -4,9 +4,10 @@ import { HomePage } from "@/pages/home";
 import { AuthPage } from "@/pages/auth";
 import { ProtectedRoute } from "@/components/global/protected";
 import { BaseElement } from "@/components/global/base";
-import { ProfileScreen } from "./pages/profile";
-import { PostPage } from "./pages/post";
-import { PostEditorScreen } from "./pages/post/editor";
+import { ProfileScreen } from "@/pages/profile";
+import { PostPage } from "@/pages/post";
+import { PostEditorScreen } from "@/pages/post/editor";
+import { PostCreatorScreen } from "@/pages/post/creator";
 
 export const Router = createBrowserRouter([
   {
@@ -27,11 +28,15 @@ export const Router = createBrowserRouter([
       },
       {
         path: '/posts/:postId',
-        element: <ProtectedRoute children={<PostPage />} />
+        element: <PostPage />
       },
       {
         path: '/posts/:postId/edit',
         element: <ProtectedRoute children={<PostEditorScreen />} />
+      },
+      {
+        path: '/posts/create',
+        element: <ProtectedRoute children={<PostCreatorScreen />} />
       }
     ]
   }

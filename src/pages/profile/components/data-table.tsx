@@ -23,6 +23,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
+import { useNavigate } from "react-router"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -33,6 +34,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const navigate = useNavigate();
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 
@@ -44,6 +46,7 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    onSortingChange: setSorting,
     state: {
       sorting,
       columnFilters,
@@ -62,7 +65,7 @@ export function DataTable<TData, TValue>({
             }
             className="max-w-sm"
           />
-          <Button size="sm" variant="primary" className="ml-2 mt-2">Nova Publicação</Button>
+          <Button size="sm" variant="primary" className="ml-2 mt-2" onClick={() => navigate("/posts/create")}>Nova Publicação</Button>
         </div>
 
         <div className="rounded-md border">

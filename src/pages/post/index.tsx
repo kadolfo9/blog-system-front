@@ -4,7 +4,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { CalendarIcon, MessageSquare, Share2 } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useParams } from "react-router";
 
 import * as PostsService from "@/services/posts";
 import * as CommentService from "@/services/comments";
@@ -13,7 +13,6 @@ import { PostCommentsForm } from "@/components/posts/post-comment-form";
 
 export function PostPage() {
   const params = useParams();
-  const navigate = useNavigate();
   const [post, setPost] = useState<PostData>();
   const [comments, setComments] = useState<PostCommentData[]>([]);
 
@@ -33,7 +32,7 @@ export function PostPage() {
     fetchData();
     fetchComments();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate]);
+  }, []);
 
   const date = new Date(post?.createdAt as unknown as string);
 
@@ -76,7 +75,7 @@ export function PostPage() {
         </Button>
       </div>
 
-      <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post?.content }} />
+      <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post?.content ?? "" }} />
 
       <Separator className="my-12" />
       <div className="space-y-6">

@@ -2,7 +2,7 @@ import { AuthContextData, AuthContextUser, AuthPayloadInput, AuthPayloadOutput, 
 import * as AuthService from "@/services/auth";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { fetchUserData, setAuthHeaders } from "@/helpers/user";
+import { deleteAuthHeaders, fetchUserData, setAuthHeaders } from "@/helpers/user";
 import Cookies from "js-cookie";
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -36,10 +36,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       return { token: response.token };
     }, []);
 
+  const handleLogout = () => {
+    deleteAuthHeaders();
+    setUser(null);
+  }
+
   const currentContext = useMemo(() => ({
     signed: !!user,
     user,
-    handleAuth
+    handleAuth,
+    handleLogout
   }), [user, handleAuth]);
 
   return (
