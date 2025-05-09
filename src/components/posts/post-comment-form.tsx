@@ -7,6 +7,7 @@ import { z } from "zod";
 
 import * as CommentsService from "@/services/comments";
 import { useAuth } from "@/hooks/use-auth";
+import { useNavigate } from "react-router";
 
 const PostFormSchema = z.object({
   content: z
@@ -20,6 +21,7 @@ type Props = {
 }
 
 export function PostCommentsForm(props: Props) {
+  const navigate = useNavigate();
   const auth = useAuth();
 
   const { handleSubmit, formState: { errors }, register } = useForm<z.infer<typeof PostFormSchema>>({
@@ -27,7 +29,10 @@ export function PostCommentsForm(props: Props) {
   })
 
   function onSubmit(data: z.infer<typeof PostFormSchema>) {
-    console.log(data);
+    if (!auth.signed) {
+      navigate("/auth");
+      return;
+    }
 
     CommentsService.createComment({
       content: data.content,

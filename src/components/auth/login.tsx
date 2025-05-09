@@ -2,14 +2,13 @@ import { useState } from "react";
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useNavigate } from "react-router";
 
-import { Button } from "../ui/button";
-import { Card } from "../ui/card";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "../ui/form";
-import { Input } from "../ui/input";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { ForgotPasswordScreen } from "./forgot";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 import { AuthPayloadInput } from "@/@types/auth";
 import { useAuth } from "@/hooks/use-auth";
@@ -30,7 +29,6 @@ const formSchema = z.object({
 })
 
 export function LoginScreen() {
-  const navigate = useNavigate();
   const auth = useAuth();
 
   const [message, setMessage] = useState<{ email: string[], password: string[] }>({
@@ -50,7 +48,7 @@ export function LoginScreen() {
     const response = await auth.handleAuth(values as AuthPayloadInput);
 
     if (response.token) {
-      navigate('/profile');
+      window.location.replace("/profile");
       return;
     }
 

@@ -1,19 +1,25 @@
 import { useAuth } from "@/hooks/use-auth";
 import { useNavigate } from "react-router";
+import { Button } from "@/components/ui/button";
 
 export function Header() {
   const auth = useAuth();
 
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    auth.handleLogout();
+    navigate("/", { replace: true, viewTransition: true });
+  };
+
   const bindLinks = () => {
     const commonLinks =
       <>
         <li>
-          <a onClick={() => navigate("/")}>Home</a>
+          <Button variant="secondary" onClick={() => navigate("/")}>Home</Button>
         </li>
         <li>
-          <a onClick={() => navigate("/about")}>Sobre</a>
+          <Button variant="secondary" onClick={() => navigate("/about")}>Sobre</Button>
         </li>
       </>
     
@@ -21,7 +27,17 @@ export function Header() {
       return <>
         { commonLinks }
         <li>
-          <a onClick={() => navigate("/profile")}>Minhas Publicações</a>
+          <Button variant="secondary" onClick={() => navigate("/profile")}>Minhas Publicações</Button>
+        </li>
+        <li className="place-content-end">
+          <Button variant="destructive" onClick={handleLogout}>Sair</Button>
+        </li>
+      </>
+    } else {
+      return <>
+        { commonLinks }
+        <li className="place-content-end">
+          <Button variant="secondary" onClick={() => navigate('/auth')}>Login</Button>
         </li>
       </>
     }

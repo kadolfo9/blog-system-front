@@ -44,5 +44,7 @@ export interface EditPostInput {
   content: string;
 }
 
-export type CreatePostOutput = PostOutputCommon;
+export interface CreatePostOutput extends PostOutputCommon {
+  postId?: string;
+}
 export type UpdatePostOutput = PostOutputCommon;

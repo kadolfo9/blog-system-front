@@ -1,7 +1,7 @@
 import { Label } from "@radix-ui/react-label";
 import { Popover, PopoverTrigger, PopoverContent } from "@radix-ui/react-popover";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export function ForgotPasswordScreen() {
   // TODO: Drawer?

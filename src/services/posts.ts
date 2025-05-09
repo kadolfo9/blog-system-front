@@ -8,6 +8,7 @@ export function createPost(data: CreatePostInput): Promise<CreatePostOutput> {
         if (response.status) {
           resolve({
             statusCode: response.status,
+            postId: response.data?.id,
           });
         }
       })

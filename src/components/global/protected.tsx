@@ -10,7 +10,7 @@ export function ProtectedRoute({ children }: Props) {
 
   useEffect(() => {
     if (!auth.signed) {
-      navigate('/auth', { replace: true });
+      navigate('/auth', { replace: true, viewTransition: true });
       return;
     }
   }, [auth, navigate]);
