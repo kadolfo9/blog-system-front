@@ -3,13 +3,13 @@ import { Header } from "./header";
 
 import "../../assets/css/index.css";
 
-export function BaseElement() {
+export default function BaseElement() {
   return (
-    <>
+    <div className="min-h-screen">
+      <Header />
       <div>
-        <Header />
         <Outlet />
       </div>
-    </>
+    </div>
   )
 }

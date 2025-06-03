@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router";
 import { HomePage } from "@/pages/home";
 import { AuthPage } from "@/pages/auth";
 import { ProtectedRoute } from "@/components/global/protected";
-import { BaseElement } from "@/components/global/base";
+import BaseElement from "@/components/global/base";
 import { ProfileScreen } from "@/pages/profile";
 import { PostPage } from "@/pages/post";
 import { PostEditorScreen } from "@/pages/post/editor";
@@ -27,16 +27,12 @@ export const Router = createBrowserRouter([
         element: <ProtectedRoute children={<ProfileScreen />} />
       },
       {
-        path: '/posts/:postId',
-        element: <PostPage />
-      },
-      {
-        path: '/posts/:postId/edit',
-        element: <ProtectedRoute children={<PostEditorScreen />} />
-      },
-      {
-        path: '/posts/create',
-        element: <ProtectedRoute children={<PostCreatorScreen />} />
+        path: '/posts',
+        children: [
+          { path: ':postId', element: <PostPage /> },
+          { path: ':postId/edit', element: <ProtectedRoute children={<PostEditorScreen />} /> },
+          { path: 'create', element: <ProtectedRoute children={<PostCreatorScreen />} /> }
+        ]
       }
     ]
   }
