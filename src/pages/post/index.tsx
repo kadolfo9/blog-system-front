@@ -36,58 +36,55 @@ export function PostPage() {
 
   const date = new Date(post?.createdAt as unknown as string);
 
-  return <>
-    <div className="container mx-auto px-4 py-8 max-w-4xl mt-15">
-      <div className="space-y-4 mb-8">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <span className="flex items-center gap-1">
-            <CalendarIcon className="h-4 w-4" />
-            {date.toLocaleString()}
-          </span>
-        </div>
-
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
-          {post?.title}
-        </h1>
-
-        <div className="flex items-center gap-4">
-          <Avatar className="h-10 w-10"
-            src="/placeholder.svg?height=40&width=40"
-            altText="Author"
-            fallback={post?.user.username.charAt(0).toUpperCase()}
-          />
-          <div>
-            <p className="font-medium">{post?.user.username}</p>
-          </div>
-        </div>
+  return <div className="container mx-auto px-4 py-8 max-w-4xl mt-15">
+    <div className="space-y-4 mb-8">
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <span className="flex items-center gap-1">
+          <CalendarIcon className="h-4 w-4" />
+          {date.toLocaleString()}
+        </span>
       </div>
 
-      <div className="flex items-center justify-between mb-8 text-sm text-muted-foreground">
-        <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1">
-            <MessageSquare className="h-4 w-4" />
-            {comments?.length ?? 0} comentário(s)
-          </span>
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+        {post?.title}
+      </h1>
+
+      <div className="flex items-center gap-4">
+        <Avatar className="h-10 w-10"
+          src="/placeholder.svg?height=40&width=40"
+          altText="Author"
+          fallback={post?.user.username.charAt(0).toUpperCase()}
+        />
+        <div>
+          <p className="font-medium">{post?.user.username}</p>
         </div>
-        <Button variant="secondary" size="sm" className="flex items-center gap-1">
-          <Share2 className="h-4 w-4" />
-                  Compartilhar
-        </Button>
-      </div>
-
-      <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post?.content ?? "" }} />
-
-      <Separator className="my-12" />
-      <div className="space-y-6">
-        <h3 className="text-2xl font-bold">Comentários ({comments?.length ?? 0})</h3>
-
-        <PostCommentsForm postId={post?.id as unknown as string} />
-
-        {comments.length > 0 && comments.map((comment, key) => (
-          <PostComments key={key} comment={comment} />
-        ))}
       </div>
     </div>
 
-  </>
+    <div className="flex items-center justify-between mb-8 text-sm text-muted-foreground">
+      <div className="flex items-center gap-4">
+        <span className="flex items-center gap-1">
+          <MessageSquare className="h-4 w-4" />
+          {comments?.length ?? 0} comentário(s)
+        </span>
+      </div>
+      <Button variant="secondary" size="sm" className="flex items-center gap-1">
+        <Share2 className="h-4 w-4" />
+                  Compartilhar
+      </Button>
+    </div>
+
+    <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post?.content ?? "" }} />
+
+    <Separator className="my-12" />
+    <div className="space-y-6">
+      <h3 className="text-2xl font-bold">Comentários ({comments?.length ?? 0})</h3>
+
+      <PostCommentsForm postId={post?.id as unknown as string} />
+
+      {comments.length > 0 && comments.map((comment, key) => (
+        <PostComments key={key} comment={comment} />
+      ))}
+    </div>
+  </div>
 }
