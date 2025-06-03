@@ -6,12 +6,24 @@ import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useProfanityChecker, SeverityLevel } from "glin-profanity";
 
 export function PostCreatorScreen() {
   const navigate = useNavigate();
 
   const [content, setContent] = useState<string>("");
   const [title, setTitle] = useState<string>("");
+
+  const { checkText } = useProfanityChecker({
+    languages: ["portuguese"],
+    wordBoundaries: true,
+    fuzzyToleranceLevel: 0.85,
+    severityLevels: true,
+    replaceWith: "***",
+    caseSensitive: true,
+    autoReplace: true,
+    minSeverity: SeverityLevel.Exact
+  })
 
   useEffect(() => {}, [navigate]);
 
@@ -32,8 +44,8 @@ export function PostCreatorScreen() {
     }
 
     const response = await PostsService.createPost({
-      title,
-      content
+      title: checkText(title).processedText as string,
+      content: checkText(content).processedText as string
     });
 
     if (response.statusCode === 200) {

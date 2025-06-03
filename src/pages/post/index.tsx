@@ -10,8 +10,11 @@ import * as PostsService from "@/services/posts";
 import * as CommentService from "@/services/comments";
 import { PostComments } from "@/components/posts/post-comments";
 import { PostCommentsForm } from "@/components/posts/post-comment-form";
+import { useAuth } from "@/hooks/use-auth";
 
 export function PostPage() {
+  const auth = useAuth();
+
   const params = useParams();
   const [post, setPost] = useState<PostData>();
   const [comments, setComments] = useState<PostCommentData[]>([]);
@@ -32,7 +35,7 @@ export function PostPage() {
     fetchData();
     fetchComments();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [auth]);
 
   const date = new Date(post?.createdAt as unknown as string);
 
@@ -80,7 +83,7 @@ export function PostPage() {
     <div className="space-y-6">
       <h3 className="text-2xl font-bold">Comentários ({comments?.length ?? 0})</h3>
 
-      <PostCommentsForm postId={post?.id as unknown as string} />
+      {auth.signed && <PostCommentsForm postId={post?.id as unknown as string} /> }
 
       {comments.length > 0 && comments.map((comment, key) => (
         <PostComments key={key} comment={comment} />
