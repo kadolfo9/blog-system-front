@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useProfanityChecker } from "glin-profanity";
 
 type Props = { postId: string };
 
@@ -18,6 +19,17 @@ export function PostEditorScreen() {
   const [content, setContent] = useState<string>("");
   //const [publishing, setPublishing] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
+
+  const { checkText } = useProfanityChecker({
+    allLanguages: true,
+    allowObfuscatedMatch: true,
+    fuzzyToleranceLevel: 0.85,
+    severityLevels: true,
+    replaceWith: "***",
+    caseSensitive: true,
+    wordBoundaries: true,
+    autoReplace: true
+  })
 
   const fetchData = useMemo(() => async () => {
     const data = await PostsService.getPost(params.postId!);
@@ -35,8 +47,8 @@ export function PostEditorScreen() {
 
   const handleSave = async () => {
     const response = await PostsService.updatePost(params.postId!, {
-      title,
-      content
+      title: checkText(title).processedText as string,
+      content: checkText(content).processedText as string
     });
 
     if (response.statusCode === 200) {
