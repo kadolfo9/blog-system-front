@@ -34,9 +34,7 @@ export function PostCard({ post } : Props) {
     <Card.Body className="grid gap-4">
       <div className="grid w-full items-center gap-4">
         <div className="flex flex-col space-y-1.5">
-          <p dangerouslySetInnerHTML={{ __html: content }} />
-
-
+          <div dangerouslySetInnerHTML={{ __html: content }} />
         </div>
       </div>
     </Card.Body>

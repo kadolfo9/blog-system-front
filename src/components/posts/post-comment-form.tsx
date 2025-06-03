@@ -8,6 +8,7 @@ import { z } from "zod";
 import * as CommentsService from "@/services/comments";
 import { useAuth } from "@/hooks/use-auth";
 import { useNavigate } from "react-router";
+import { useProfanityChecker, SeverityLevel } from "glin-profanity";
 
 const PostFormSchema = z.object({
   content: z
@@ -24,6 +25,17 @@ export function PostCommentsForm(props: Props) {
   const navigate = useNavigate();
   const auth = useAuth();
 
+  const { checkText } = useProfanityChecker({
+    languages: ["portuguese"],
+    wordBoundaries: true,
+    fuzzyToleranceLevel: 0.85,
+    severityLevels: true,
+    replaceWith: "***",
+    caseSensitive: true,
+    autoReplace: true,
+    minSeverity: SeverityLevel.Exact
+  })
+
   const { handleSubmit, formState: { errors }, register } = useForm<z.infer<typeof PostFormSchema>>({
     resolver: zodResolver(PostFormSchema)
   })
@@ -35,7 +47,7 @@ export function PostCommentsForm(props: Props) {
     }
 
     CommentsService.createComment({
-      content: data.content,
+      content: checkText(data.content).processedText as string,
       postId: props.postId,
       userId: auth.user?.id as unknown as string
     })
@@ -46,13 +58,13 @@ export function PostCommentsForm(props: Props) {
   return (
     <>
       <div className="space-y-4">
-        <form onSubmit={handleSubmit(onSubmit)} className="">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Textarea 
             {...register("content")} 
             placeholder="Insira seu comentário aqui" 
             className="w-full p-4 border rounded-lg resize-none h-32 focus:outline-none focus:ring-2 focus:ring-primary"
           />
-          { errors.content && <p className="p-4">{ errors.content.message }</p> }
+          { errors.content && <p className="p-4" style={{ color: 'red' }}>{ errors.content.message }</p> }
 
           <div className="mt-3">
             <Button type="submit" variant="primary">Publicar</Button>

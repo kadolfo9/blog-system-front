@@ -1,9 +1,9 @@
-import * as React from "react"
+import { useEffect, useState } from "react"
 import { EditorContent, EditorContext, useEditor } from "@tiptap/react"
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit"
-import { Image } from "@tiptap/extension-image"
+// import { Image } from "@tiptap/extension-image"
 import { TaskItem } from "@tiptap/extension-task-item"
 import { TaskList } from "@tiptap/extension-task-list"
 import { TextAlign } from "@tiptap/extension-text-align"
@@ -29,7 +29,7 @@ import {
 } from "@/components/tiptap-ui-primitive/toolbar"
 
 // --- Tiptap Node ---
-import { ImageUploadNode } from "@/components/tiptap-node/image-upload-node/image-upload-node-extension"
+// import { ImageUploadNode } from "@/components/tiptap-node/image-upload-node/image-upload-node-extension"
 import "@/components/tiptap-node/code-block-node/code-block-node.scss"
 import "@/components/tiptap-node/list-node/list-node.scss"
 import "@/components/tiptap-node/image-node/image-node.scss"
@@ -37,7 +37,7 @@ import "@/components/tiptap-node/paragraph-node/paragraph-node.scss"
 
 // --- Tiptap UI ---
 import { HeadingDropdownMenu } from "@/components/tiptap-ui/heading-dropdown-menu"
-import { ImageUploadButton } from "@/components/tiptap-ui/image-upload-button"
+// import { ImageUploadButton } from "@/components/tiptap-ui/image-upload-button"
 import { ListDropdownMenu } from "@/components/tiptap-ui/list-dropdown-menu"
 import { NodeButton } from "@/components/tiptap-ui/node-button"
 import {
@@ -63,17 +63,9 @@ import { LinkIcon } from "@/components/tiptap-icons/link-icon"
 import { useMobile } from "@/hooks/use-mobile"
 import { useWindowSize } from "@/hooks/use-window-size"
 
-// --- Components ---
-import { ThemeToggle } from "@/components/tiptap-templates/simple/theme-toggle"
-import { Button as HButton } from "@/components/ui/button"
-
-// --- Lib ---
-import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils"
-
 // --- Styles ---
 import "@/components/tiptap-templates/simple/simple-editor.scss"
 
-import content from "@/components/tiptap-templates/simple/data/content.json"
 
 interface EditorProps {
     content: string
@@ -181,12 +173,12 @@ const MobileToolbarContent = ({
 export function PostEditor({ content, onChange, placeholder = "Comece a escrever..." }: EditorProps) {
   const isMobile = useMobile()
   const windowSize = useWindowSize()
-  const [mobileView, setMobileView] = React.useState<
+  const [mobileView, setMobileView] = useState<
         "main" | "highlighter" | "link"
     >("main")
-  const [rect, setRect] = React.useState({ y: 0 })
+  const [rect, setRect] = useState({ y: 0 })
 
-  React.useEffect(() => {
+  useEffect(() => {
     setRect(document.body.getBoundingClientRect())
   }, [])
 
@@ -221,13 +213,13 @@ export function PostEditor({ content, onChange, placeholder = "Comece a escrever
     onUpdate: ({ editor }) => onChange(editor.getHTML())
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isMobile && mobileView !== "main") {
       setMobileView("main")
     }
   }, [isMobile, mobileView])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (editor && content !== editor.getHTML()) {
       editor.commands.setContent(content)
     }
