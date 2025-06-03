@@ -95,7 +95,7 @@ export function LoginScreen() {
                   <FormControl>
                     <Input {...field} placeholder="example@domain.com" />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage style={{ color: 'red' }} />
                 </FormItem>
               )}
             />
@@ -108,7 +108,7 @@ export function LoginScreen() {
                   <FormControl>
                     <Input {...field} type="password" placeholder="********" />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage style={{ color: 'red' }} />
                 </FormItem>
               )}
             />
