@@ -1,4 +1,4 @@
-import { CreatePostInput, CreatePostOutput, EditPostInput, PostData, PostList, UpdatePostOutput } from '@/@types/post';
+import { CreatePostInput, CreatePostOutput, EditPostInput, PostData, PostList, PostOutputCommon, UpdatePostOutput } from '@/@types/post';
 import { API } from '@/api';
 
 export function createPost(data: CreatePostInput): Promise<CreatePostOutput> {
@@ -74,4 +74,15 @@ export function updatePost(postId: string, input: EditPostInput): Promise<Update
       })
       .catch((error) => reject(error));
   });
+}
+
+export function deletePost(postId: string): Promise<PostOutputCommon> {
+  return new Promise((resolve, reject) => {
+    API.delete(`/posts/delete/${postId}`)
+      .then((response) => {
+        if (response.status === 200) {
+          resolve({ statusCode: response.status, });
+        }
+      }).catch((error) => reject(error));
+  })
 }
