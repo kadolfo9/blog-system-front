@@ -14,7 +14,9 @@ export function ProfileScreen() {
   const [posts, setPosts] = useState<PostData[]>([])
 
   useEffect(() => {
-    PostService.getAllPostsByUserId(user?.id as unknown as string).then((r) => setPosts(r))
+    PostService
+      .getAllPostsByUserId(user?.id as unknown as string)
+      .then((r) => setPosts(r))
   }, [navigate, signed, user?.id])
 
   return <>

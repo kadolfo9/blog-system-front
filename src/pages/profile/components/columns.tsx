@@ -1,8 +1,17 @@
 import { PostData } from "@/@types/post";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu } from "@/components/ui/dropdown-menu";
+import { deletePost } from "@/services/posts";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
+
+// TODO: delete confirmation modal
+function handleDelete(post: PostData) {
+  deletePost(post.id)
+    .then(() => {
+      window.location.reload();
+    })
+}
 
 export const columns: ColumnDef<PostData>[] = [
   {
@@ -60,7 +69,7 @@ export const columns: ColumnDef<PostData>[] = [
               <DropdownMenu.Item value="edit_post" onClick={() => window.location.replace(`/posts/${row.original.id}/edit`)}>
                   Editar
               </DropdownMenu.Item>
-              <DropdownMenu.Item value="delete_post">
+              <DropdownMenu.Item value="delete_post" onClick={() => handleDelete(row?.original)}>
                   Apagar
               </DropdownMenu.Item>
             </DropdownMenu.ItemGroup>
