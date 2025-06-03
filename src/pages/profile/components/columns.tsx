@@ -43,7 +43,7 @@ export const columns: ColumnDef<PostData>[] = [
 
   {
     id: "actions",
-    cell: () => {
+    cell: ({ row }) => {
       return (
         <DropdownMenu.Root positioning={{ strategy: "fixed" }} composite={true}>
           <DropdownMenu.Trigger>
@@ -53,11 +53,11 @@ export const columns: ColumnDef<PostData>[] = [
             <DropdownMenu.ItemGroup>
               <DropdownMenu.ItemGroupLabel>Ações</DropdownMenu.ItemGroupLabel>
               <DropdownMenu.Separator />
-              <DropdownMenu.Item value="view_post">
+              <DropdownMenu.Item value="view_post" onClick={() => window.location.replace(`/posts/${row.original.id}`)}>
                   Ver
               </DropdownMenu.Item>
               <DropdownMenu.Separator />
-              <DropdownMenu.Item value="edit_post">
+              <DropdownMenu.Item value="edit_post" onClick={() => window.location.replace(`/posts/${row.original.id}/edit`)}>
                   Editar
               </DropdownMenu.Item>
               <DropdownMenu.Item value="delete_post">
