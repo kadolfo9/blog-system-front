@@ -3,20 +3,20 @@
 
 @import "./globals.css";
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .centralize {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  @apply h-screen
+  @apply flex justify-center items-center min-h-screen;
 }
 
 .center {
   justify-content: center;
-  align-items: center;
   display: flex;
 }
 
