@@ -8,6 +8,7 @@ import { ProfileScreen } from "@/pages/profile";
 import { PostPage } from "@/pages/post";
 import { PostEditorScreen } from "@/pages/post/editor";
 import { PostCreatorScreen } from "@/pages/post/creator";
+import { AboutPage } from "@/pages/about";
 
 export const Router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ export const Router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />
+      },
+      {
+        path: '/about',
+        element: <AboutPage />
       },
       {
         path: '/auth',
