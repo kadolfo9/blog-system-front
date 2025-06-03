@@ -5,8 +5,7 @@ import { useEffect, useMemo, useState } from "react"
 import * as PostsService from "@/services/posts"
 import { useAuth } from "@/hooks/use-auth";
 
-function HomePage()
-{
+function HomePage() {
   const auth = useAuth();
   const [posts, setPosts] = useState<PostData[]>([]);
 
@@ -17,12 +16,16 @@ function HomePage()
 
   useEffect(() => {
     fetchData();
-  }, [auth, fetchData]);
+  }, [auth]);
 
   return <>
     <div className="center" style={{ marginTop: '8rem' }}>
       <div className="grid grid-cols-4 gap-4">
-        {posts.map((post) => <PostCard key={post.id} post={post} />)}
+        {posts.length === 0 ? (
+          <div className="text-red-500">Nenhum post carregado</div>
+        ) : (
+          posts.map(post => <PostCard key={post.id} post={post} />)
+        )}
       </div>
     </div>
   </>
