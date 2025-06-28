@@ -40,7 +40,7 @@ export function PostCard({ post } : Props) {
     </Card.Body>
 
     <Card.Footer className="flex justify-between">
-      <Button variant="primary" onClick={handleClick}>Ler mais</Button>
+      <Button appearance="primary" onClick={handleClick}>Ler mais</Button>
     </Card.Footer>
   </Card.Root>
 }

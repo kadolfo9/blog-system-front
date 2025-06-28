@@ -65,7 +65,7 @@ export function DataTable<TData, TValue>({
             }
             className="max-w-sm"
           />
-          <Button size="sm" variant="primary" className="ml-2 mt-2" onClick={() => navigate("/posts/create")}>Nova Publicação</Button>
+          <Button size="sm" appearance="primary" className="ml-2 mt-2" onClick={() => navigate("/posts/create")}>Nova Publicação</Button>
         </div>
 
         <div className="rounded-md border">
@@ -115,7 +115,7 @@ export function DataTable<TData, TValue>({
 
         <div className="flex items-center justify-end space-x-2 py-4">
           <Button
-            variant="ghost"
+            appearance="ghost"
             size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
@@ -123,7 +123,7 @@ export function DataTable<TData, TValue>({
             Anterior
           </Button>
           <Button
-            variant="ghost"
+            appearance="ghost"
             size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}

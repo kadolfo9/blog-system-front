@@ -20,12 +20,12 @@ export function Header() {
       <>
         <li>
           <Link to="/">
-            <Button variant="secondary">Home</Button>
+            <Button appearance="secondary">Home</Button>
           </Link>
         </li>
         <li>
           <Link to="/about">
-            <Button variant="secondary">Sobre</Button>
+            <Button appearance="secondary">Sobre</Button>
           </Link>
         </li>
       </>
@@ -35,11 +35,11 @@ export function Header() {
         { commonLinks }
         <li>
           <Link to="/profile">
-            <Button variant="secondary">Minhas Publicações</Button>
+            <Button appearance="secondary">Minhas Publicações</Button>
           </Link>
         </li>
         <li className="place-content-end p-1">
-          <Button variant="destructive" onClick={handleLogout}>Sair</Button>
+          <Button appearance="destructive" onClick={handleLogout}>Sair</Button>
         </li>
       </>
     } else {
@@ -47,7 +47,7 @@ export function Header() {
         { commonLinks }
         <li className="place-content-end">
           <Link to="/auth">
-            <Button variant="secondary">Login</Button>
+            <Button appearance="secondary">Login</Button>
           </Link>
         </li>
       </>

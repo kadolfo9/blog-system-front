@@ -1,25 +1,19 @@
 import { type Assign, ark } from '@ark-ui/react'
 
-import { cn, type VariantProps, tv } from '@/lib/utils'
+import { type VariantProps, tv, cn } from '@/lib/utils'
 
-//---------------------------------
-// Variants
-//---------------------------------
-
-const buttonVariants = tv({
+const buttonStyles = tv({
   base: [
-    [
-      'isolate inline-flex cursor-pointer select-none items-center justify-center whitespace-nowrap rounded-xl font-sans font-semibold tracking-normal',
-      'not-disabled:inset-ring-1 disabled:cursor-not-allowed disabled:bg-fill-1 disabled:text-disabled',
-      'transition-colors ease-out-quad',
-    ],
+    'isolate inline-flex cursor-pointer select-none items-center justify-center whitespace-nowrap rounded-xl font-sans font-semibold tracking-normal',
+    'not-disabled:inset-ring-1 disabled:cursor-not-allowed disabled:bg-fill-1 disabled:text-disabled',
+    'transition-colors ease-out',
   ],
   variants: {
-    variant: {
+    appearance: {
       primary: ['bg-brand text-fg-2', 'not-disabled:hover:bg-brand/90'],
       secondary: [
         'inset-ring-border bg-surface-2 text-fg-1',
-        'not-disabled:hover:bg-fill-2',
+        'not-disabled:hover:bg-fill-2 [&_svg]:fill-fill-5',
       ],
       ghost: [
         'bg-transparent text-brand transition-[color_box-shadow]',
@@ -36,13 +30,13 @@ const buttonVariants = tv({
       lg: 'h-11 px-4 text-lg/7 [&_svg]:size-7',
       xl: 'h-14 px-6 text-xl/8 [&_svg]:size-8',
     },
-    iconOnly: {
+    isIconOnly: {
       true: 'aspect-square px-0',
     },
   },
   compoundVariants: [
     {
-      variant: ['primary', 'ghost'],
+      appearance: ['primary', 'ghost'],
       className: 'inset-ring-brand',
     },
     {
@@ -51,46 +45,40 @@ const buttonVariants = tv({
     },
   ],
   defaultVariants: {
-    variant: 'primary',
+    appearance: 'primary',
     size: 'md',
-    iconOnly: false,
+    isIconOnly: false,
   },
 })
 
-//---------------------------------
-// Types
-//---------------------------------
-
 type ButtonProps = Assign<
-  React.CustomComponentPropsWithRef<typeof ark.button>,
-  VariantProps<typeof buttonVariants>
+  React.ComponentProps<typeof ark.button>,
+  VariantProps<typeof buttonStyles>
 >
 
-//---------------------------------
-// Button
-//---------------------------------
-
-function Button({ className, variant, size, iconOnly, ...props }: ButtonProps) {
+const Button = ({
+  className,
+  appearance,
+  size,
+  isIconOnly,
+  ...props
+}: ButtonProps) => {
   return (
     <ark.button
       {...props}
       className={cn(
-        buttonVariants({
+        buttonStyles({
           className,
-          variant,
+          appearance,
           size,
-          iconOnly,
+          isIconOnly,
         }),
       )}
       data-scope="button"
-      data-focusable
     />
   )
 }
 
-//---------------------------------
-// Exports
-//---------------------------------
+Button.displayName = 'Button'
 
-export { Button, buttonVariants }
-export type { ButtonProps }
+export { Button, buttonStyles, type ButtonProps }

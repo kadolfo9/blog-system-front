@@ -63,10 +63,10 @@ export function PostEditorScreen() {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">{post?.id ? "Editar Publicação" : "Criar nova publicação"}</h1>
           <div className="flex gap-2">
-            <Button size="sm" variant="secondary" onClick={() => {
+            <Button size="sm" appearance="secondary" onClick={() => {
               navigate(-1)
             }}>Cancelar</Button>
-            <Button size="sm" variant="primary" onClick={handleSave}>Salvar</Button>
+            <Button size="sm" appearance="primary" onClick={handleSave}>Salvar</Button>
           </div>
         </div>
 

@@ -67,7 +67,7 @@ export function PostCommentsForm(props: Props) {
           { errors.content && <p className="p-4" style={{ color: 'red' }}>{ errors.content.message }</p> }
 
           <div className="mt-3">
-            <Button type="submit" variant="primary">Publicar</Button>
+            <Button type="submit" appearance="primary">Publicar</Button>
           </div>
         </form>
       </div>

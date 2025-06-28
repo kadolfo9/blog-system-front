@@ -5,31 +5,22 @@ import { Field as ArkField } from '@ark-ui/react/field'
 
 import { cn, tv, type VariantProps } from '@/lib/utils'
 
-//---------------------------------
-// Variants
-//---------------------------------
+////////////////////////////////////////////////////////////////////////////////////
 
-const inputVariantsSlots = tv({
+const inputStyles = tv({
   slots: {
     root: [
-      'group inline-flex min-w-[15rem] overflow-hidden rounded-xl bg-surface-1 ring-1 ring-border',
-      'transition-[background-color,box-shadow] duration-150 ease-in-out',
-      // hover
-      'not-focus-within:has-enabled:hover:ring-2',
-      // focus
+      'group inline-flex overflow-hidden rounded-xl bg-surface-1 ring-1 ring-border',
       'focus-within:bg-surface-2 focus-within:ring-2 focus-within:ring-brand',
-      // disabled
       'has-disabled:bg-fill-1 has-disabled:ring-0 has-disabled:*:cursor-not-allowed',
     ],
     input: [
-      'grow font-medium font-sans text-fg-1 tracking-normal caret-brand outline-none placeholder:select-none',
-      // disabled
+      'min-w-0 flex-1 font-medium font-sans text-fg-1 tracking-normal caret-brand outline-none placeholder:select-none',
       'disabled:text-disabled disabled:placeholder:text-disabled',
     ],
     addon: [
       'grid h-full shrink-0 place-items-center font-medium font-sans text-fill-5',
       'data-[styling=true]:bg-fill-1 data-[styling=true]:text-fg-1/40',
-      // disabled
       'group-has-disabled:text-disabled',
     ],
   },
@@ -38,19 +29,15 @@ const inputVariantsSlots = tv({
       sm: {
         root: 'h-9',
         input: 'pr-2.5 pl-3 text-sm/5.5',
-        addon: ['text-sm/5.5 [&_svg]:size-5'],
+        addon: 'text-sm/5.5 [&_svg]:size-5',
       },
       md: {
         root: 'h-11',
         input: 'pr-3 pl-4 text-base',
-        addon: ['text-base [&_svg]:size-6'],
+        addon: 'text-base [&_svg]:size-6',
       },
       lg: {
-        root: [
-          'h-14',
-          // focus
-          'focus-within:ring-3',
-        ],
+        root: ['h-14', 'focus-within:ring-3'],
         input: 'pr-4 pl-5 text-lg/7',
         addon: [
           'text-lg/7 [&_svg]:size-7',
@@ -59,7 +46,7 @@ const inputVariantsSlots = tv({
         ],
       },
     },
-    invalid: {
+    isInvalid: {
       true: {
         root: 'bg-surface-2 ring-2 ring-danger',
       },
@@ -78,19 +65,50 @@ const inputVariantsSlots = tv({
   ],
   defaultVariants: {
     size: 'md',
-    isError: false,
+    isInvalid: false,
   },
 })
 
-//---------------------------------
-// Types
-//---------------------------------
+type InputVariants = VariantProps<typeof inputStyles>
 
-type InputSharedProps = VariantProps<typeof inputVariantsSlots>
+////////////////////////////////////////////////////////////////////////////////////
+
+type AdornmentProps = {
+  placement: 'prefix' | 'suffix'
+  size: InputVariants['size']
+  styling?: boolean
+  children: React.ReactNode
+  htmlFor?: string
+}
+
+const InputAdornment = ({
+  placement,
+  size,
+  styling = false,
+  children,
+  htmlFor,
+}: AdornmentProps) => {
+  const { addon } = inputStyles()
+  return (
+    <ArkField.Label
+      htmlFor={htmlFor}
+      className={cn(addon({ size }))}
+      role="presentation"
+      data-part={placement}
+      data-styling={styling}
+    >
+      {children}
+    </ArkField.Label>
+  )
+}
+
+InputAdornment.displayName = 'InputAdornment'
+
+////////////////////////////////////////////////////////////////////////////////////
 
 type InputProps = Assign<
   Omit<React.CustomComponentPropsWithRef<typeof ArkField.Input>, 'prefix'>,
-  InputSharedProps
+  InputVariants
 > & {
   prefix?: React.ReactNode
   suffix?: React.ReactNode
@@ -98,55 +116,20 @@ type InputProps = Assign<
   suffixStyling?: boolean
 }
 
-type AddonProps = Pick<
-  React.ComponentPropsWithRef<'label'>,
-  'children' | 'htmlFor'
-> & {
-  size: InputSharedProps['size']
-  type: 'prefix' | 'suffix'
-  styling?: boolean
-}
-
-//---------------------------------
-// InputAddon
-//---------------------------------
-
-function InputAddon({ size, type, styling = false, ...props }: AddonProps) {
-  const { addon } = inputVariantsSlots()
-
-  return (
-    <label
-      {...props}
-      role="presentation"
-      className={cn(
-        addon({
-          size,
-        }),
-      )}
-      data-scope="input"
-      data-part={type}
-      data-styling={styling}
-    />
-  )
-}
-
-//---------------------------------
-// Input
-//---------------------------------
-
-function Input({
+const Input = ({
   className,
-  size,
-  invalid,
+  size = 'md',
+  isInvalid,
   prefix,
   suffix,
   prefixStyling = false,
   suffixStyling = false,
+  id,
   ...props
-}: InputProps) {
-  const uniqueId = React.useId()
+}: InputProps) => {
+  const fieldId = id ?? React.useId()
 
-  const { root, input } = inputVariantsSlots({
+  const { root, input } = inputStyles({
     size,
   })
 
@@ -155,49 +138,44 @@ function Input({
       className={cn(
         root({
           className,
-          invalid,
+          isInvalid,
         }),
       )}
       data-scope="input"
       data-part="root"
     >
       {prefix && (
-        <InputAddon
+        <InputAdornment
+          placement="prefix"
           size={size}
-          type="prefix"
           styling={prefixStyling}
-          htmlFor={uniqueId}
+          htmlFor={fieldId}
         >
           {prefix}
-        </InputAddon>
+        </InputAdornment>
       )}
 
       <ArkField.Input
         {...props}
-        id={uniqueId}
+        id={id}
         className={cn(input())}
-        data-scope="input"
-        data-part="input"
-        aria-invalid={invalid}
+        aria-invalid={isInvalid}
       />
 
       {suffix && (
-        <InputAddon
+        <InputAdornment
+          placement="suffix"
           size={size}
-          type="suffix"
           styling={suffixStyling}
-          htmlFor={uniqueId}
+          htmlFor={fieldId}
         >
           {suffix}
-        </InputAddon>
+        </InputAdornment>
       )}
     </div>
   )
 }
 
-//---------------------------------
-// Exports
-//---------------------------------
+Input.displayName = 'Input'
 
-export { Input }
-export type { InputProps }
+export { Input, type InputProps }

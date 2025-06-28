@@ -26,7 +26,7 @@ export const columns: ColumnDef<PostData>[] = [
   {
     accessorKey: "createdAt",
     header: ({ column }) => <Button 
-      variant="ghost" 
+      appearance="ghost" 
       className="text-right"
       size="sm"
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
@@ -56,7 +56,7 @@ export const columns: ColumnDef<PostData>[] = [
       return (
         <DropdownMenu.Root positioning={{ strategy: "fixed" }} composite={true}>
           <DropdownMenu.Trigger>
-            <Button variant="primary">...</Button>
+            <Button appearance="primary">...</Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>
             <DropdownMenu.ItemGroup>

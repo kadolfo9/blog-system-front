@@ -71,7 +71,7 @@ export function PostPage() {
           {comments?.length ?? 0} comentário(s)
         </span>
       </div>
-      <Button variant="secondary" size="sm" className="flex items-center gap-1">
+      <Button appearance="secondary" size="sm" className="flex items-center gap-1">
         <Share2 className="h-4 w-4" />
                   Compartilhar
       </Button>
