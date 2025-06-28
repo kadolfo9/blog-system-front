@@ -13,12 +13,12 @@ import {
 } from "@tanstack/react-table"
 
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+  Body,
+  Cell,
+  Head,
+  Header,
+  Root,
+  Row,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -69,48 +69,48 @@ export function DataTable<TData, TValue>({
         </div>
 
         <div className="rounded-md border">
-          <Table>
-            <TableHeader>
+          <Root>
+            <Header>
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
+                <Row key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     return (
-                      <TableHead key={header.id}>
+                      <Head key={header.id}>
                         {header.isPlaceholder
                           ? null
                           : flexRender(
                             header.column.columnDef.header,
                             header.getContext()
                           )}
-                      </TableHead>
+                      </Head>
                     )
                   })}
-                </TableRow>
+                </Row>
               ))}
-            </TableHeader>
-            <TableBody>
+            </Header>
+            <Body>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
-                  <TableRow
+                  <Row
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
+                      <Cell key={cell.id}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </TableCell>
+                      </Cell>
                     ))}
-                  </TableRow>
+                  </Row>
                 ))
               ) : (
-                <TableRow>
-                  <TableCell colSpan={columns.length} className="h-24 text-center">
+                <Row>
+                  <Cell colSpan={columns.length} className="h-24 text-center">
                     Nenhum resultado encontrado.
-                  </TableCell>
-                </TableRow>
+                  </Cell>
+                </Row>
               )}
-            </TableBody>
-          </Table>
+            </Body>
+          </Root>
         </div>
 
         <div className="flex items-center justify-end space-x-2 py-4">
